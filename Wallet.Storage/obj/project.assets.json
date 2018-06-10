@@ -2205,6 +2205,19 @@
             "rid": "aot"
           }
         }
+      },
+      "Wallet.Domain/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.10586/win10-arm": {
@@ -4500,6 +4513,19 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Domain/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Domain.dll": {}
         }
       }
     },
@@ -6833,6 +6859,19 @@
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Wallet.Domain/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.10586/win10-arm64-aot": {
@@ -8750,6 +8789,19 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Domain/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Domain.dll": {}
         }
       }
     },
@@ -11055,6 +11107,19 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Domain/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Domain.dll": {}
         }
       }
     },
@@ -13397,6 +13462,19 @@
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Wallet.Domain/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.10586/win10-x86": {
@@ -15701,6 +15779,19 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Domain/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Domain.dll": {}
         }
       }
     },
@@ -18042,6 +18133,19 @@
         },
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Domain/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Domain.dll": {}
         }
       }
     }
@@ -27486,11 +27590,17 @@
         "system.xml.xmlserializer.4.0.11.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Wallet.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Wallet.Domain/Wallet.Domain.csproj",
+      "msbuildProject": "../Wallet.Domain/Wallet.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "UAP,Version=v10.0.10586": [
-      "Microsoft.NETCore.UniversalWindowsPlatform >= 6.1.5"
+      "Microsoft.NETCore.UniversalWindowsPlatform >= 6.1.5",
+      "Wallet.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -27523,7 +27633,11 @@
       },
       "frameworks": {
         "uap10.0.10586": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\git-repos\\Wallet\\Wallet.Domain\\Wallet.Domain.csproj": {
+              "projectPath": "D:\\git-repos\\Wallet\\Wallet.Domain\\Wallet.Domain.csproj"
+            }
+          }
         }
       }
     },

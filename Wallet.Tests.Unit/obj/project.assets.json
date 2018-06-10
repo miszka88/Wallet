@@ -2298,6 +2298,33 @@
             "rid": "aot"
           }
         }
+      },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
+      "Wallet.Services/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Wallet.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.10586/win10-arm": {
@@ -4672,6 +4699,33 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
+      "Wallet.Services/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Wallet.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Services.dll": {}
         }
       }
     },
@@ -7084,6 +7138,33 @@
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
+      "Wallet.Services/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Wallet.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.10586/win10-arm64-aot": {
@@ -9080,6 +9161,33 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
+      "Wallet.Services/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Wallet.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Services.dll": {}
         }
       }
     },
@@ -11464,6 +11572,33 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
+      "Wallet.Services/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Wallet.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Services.dll": {}
         }
       }
     },
@@ -13885,6 +14020,33 @@
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
+      "Wallet.Services/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Wallet.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.10586/win10-x86": {
@@ -16268,6 +16430,33 @@
         },
         "runtime": {
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
+      "Wallet.Services/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Wallet.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Services.dll": {}
         }
       }
     },
@@ -18688,6 +18877,33 @@
         },
         "runtime": {
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
+        }
+      },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
+      "Wallet.Services/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Wallet.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Services.dll": {}
         }
       }
     }
@@ -28449,6 +28665,16 @@
         "system.xml.xmlserializer.4.0.11.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Wallet.Common/1.0.0": {
+      "type": "project",
+      "path": "../Wallet.Common/Wallet.Common.csproj",
+      "msbuildProject": "../Wallet.Common/Wallet.Common.csproj"
+    },
+    "Wallet.Services/1.0.0": {
+      "type": "project",
+      "path": "../Wallet.Services/Wallet.Services.csproj",
+      "msbuildProject": "../Wallet.Services/Wallet.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -28456,7 +28682,9 @@
       "MSTest.TestAdapter >= 1.2.1",
       "MSTest.TestFramework >= 1.2.1",
       "Microsoft.NET.Test.Sdk >= 15.7.0",
-      "Microsoft.NETCore.UniversalWindowsPlatform >= 6.1.5"
+      "Microsoft.NETCore.UniversalWindowsPlatform >= 6.1.5",
+      "Wallet.Common >= 1.0.0",
+      "Wallet.Services >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -28489,7 +28717,14 @@
       },
       "frameworks": {
         "uap10.0.10586": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\git-repos\\Wallet\\Wallet.Common\\Wallet.Common.csproj": {
+              "projectPath": "D:\\git-repos\\Wallet\\Wallet.Common\\Wallet.Common.csproj"
+            },
+            "D:\\git-repos\\Wallet\\Wallet.Services\\Wallet.Services.csproj": {
+              "projectPath": "D:\\git-repos\\Wallet\\Wallet.Services\\Wallet.Services.csproj"
+            }
+          }
         }
       }
     },
