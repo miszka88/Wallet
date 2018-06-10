@@ -1,10 +1,11 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Wallet.Domain.Services
 {
     public interface ILocalStorage
     {
-        void StoreVariable(Tuple<string, string> variable);
+        void SetupLocalEnvironment();
+        void StoreVariable(KeyValuePair<string, string> variable);
         object ReadVariableValue(string variableName);
     }
 }
