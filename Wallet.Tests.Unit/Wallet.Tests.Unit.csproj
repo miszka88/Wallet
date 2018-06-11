@@ -135,13 +135,33 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wallet.Authorization\Wallet.Authorization.csproj">
+      <Project>{d09c8c3d-1e0d-49ae-abfe-f311182b411e}</Project>
+      <Name>Wallet.Authorization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wallet.Common\Wallet.Common.csproj">
-      <Project>{E86159AE-BA91-4AF2-9C75-0F744C78C60F}</Project>
+      <Project>{e86159ae-ba91-4af2-9c75-0f744c78c60f}</Project>
       <Name>Wallet.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallet.Domain\Wallet.Domain.csproj">
+      <Project>{1f69e80d-217f-4267-80b8-049338d72b9a}</Project>
+      <Name>Wallet.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallet.Repositories\Wallet.Repositories.csproj">
+      <Project>{f3dcdd0e-cec4-405f-80c5-f2554edcff5d}</Project>
+      <Name>Wallet.Repositories</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wallet.Services\Wallet.Services.csproj">
       <Project>{C01EC42B-61B3-481C-8764-6490540FD2C0}</Project>
       <Name>Wallet.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallet.Storage\Wallet.Storage.csproj">
+      <Project>{041d374b-d87b-489b-b781-fb59247ae90e}</Project>
+      <Name>Wallet.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallet\Wallet.csproj">
+      <Project>{86007e90-9df6-4f2c-8982-ca5e9aaf9554}</Project>
+      <Name>Wallet</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

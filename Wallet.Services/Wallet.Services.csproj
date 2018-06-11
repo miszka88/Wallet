@@ -106,14 +106,16 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AuthorizationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\UriBuilderHelper.cs" />
     <EmbeddedResource Include="Properties\Wallet.Services.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +123,13 @@
       <Project>{E86159AE-BA91-4AF2-9C75-0F744C78C60F}</Project>
       <Name>Wallet.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wallet.Domain\Wallet.Domain.csproj">
+      <Project>{1f69e80d-217f-4267-80b8-049338d72b9a}</Project>
+      <Name>Wallet.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

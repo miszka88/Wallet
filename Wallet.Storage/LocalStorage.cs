@@ -9,7 +9,12 @@ namespace Wallet.Storage
         private ApplicationDataContainer _localSettings;
         private StorageFolder _localFolder;
 
-        public void SetupLocalEnvironment()
+        public LocalStorage()
+        {
+            SetupLocalEnvironment();
+        }
+
+        private void SetupLocalEnvironment()
         {
             _localSettings = ApplicationData.Current.LocalSettings;
             _localFolder = ApplicationData.Current.LocalFolder;

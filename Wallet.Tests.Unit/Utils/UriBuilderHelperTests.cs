@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Wallet.Common;
-using Wallet.Services.Utils;
+using Wallet.Common.Helpers;
 
 namespace Wallet.Tests.Unit.Utils
 {
