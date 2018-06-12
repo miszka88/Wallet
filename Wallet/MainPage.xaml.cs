@@ -46,8 +46,11 @@ namespace Wallet
 
                 Task.Run(() => _authorization.Authorize(_httpClient, loginParams, uri)).Wait();
             }
-
-            Debug.WriteLine("ApiKey read from local storage.");
+            else
+            {
+                Debug.WriteLine("ApiKey read from local storage.");
+                Debug.WriteLine($"ApiKey Value: {_localStorage.ReadVariableValue("ApiKey").ToString()}");
+            }
         }
     }
 }

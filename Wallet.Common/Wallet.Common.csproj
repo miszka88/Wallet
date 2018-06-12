@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="AccountAction.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="DEBUG_HELPERS\DebugHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseType.cs" />
     <Compile Include="Helpers\UriBuilderHelper.cs" />
