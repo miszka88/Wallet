@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using Autofac;
+using System;
+using System.Net.Http;
+using Wallet.Authorization;
+using Wallet.Domain.Repositories;
+using Wallet.Domain.Services;
+using Wallet.Repositories;
+using Wallet.Services;
+using Wallet.Storage;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Wallet
@@ -22,6 +20,8 @@ namespace Wallet
     /// </summary>
     sealed partial class App : Application
     {
+        public static IContainer Container;
+
         /// <summary>
         /// Inicjuje pojedynczy obiekt aplikacji. Jest to pierwszy wiersz napisanego kodu
         /// wykonywanego i jest logicznym odpowiednikiem metod main() lub WinMain().
@@ -29,7 +29,24 @@ namespace Wallet
         public App()
         {
             this.InitializeComponent();
+
+            this.ConfigureIoC();
+
             this.Suspending += OnSuspending;
+        }
+
+        private void ConfigureIoC()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
+            builder.RegisterType<MainPage>().AsSelf();
+
+            builder.RegisterType<AuthorizationRepository>().As<IAuthorizationRepository>();
+            builder.RegisterType<AuthorizationService>().As<IAuthorizationService>();
+            builder.RegisterType<Auth>().As<IAuthorization>();
+            builder.RegisterType<LocalStorage>().As<ILocalStorage>();
+
+            Container = builder.Build();
         }
 
         /// <summary>

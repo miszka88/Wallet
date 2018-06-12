@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Autofac;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -6,10 +7,8 @@ using Wallet.Authorization;
 using Wallet.Common;
 using Wallet.Common.Helpers;
 using Wallet.Domain.Services;
-using Wallet.Repositories;
-using Wallet.Services;
-using Wallet.Storage;
 using Windows.UI.Xaml.Controls;
+
 
 //Szablon elementu Pusta strona jest udokumentowany na stronie https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x415
 
@@ -20,22 +19,23 @@ namespace Wallet
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private readonly HttpClient _httpClient;
-        private readonly IAuthorization _authorization;
-        private readonly ILocalStorage _localStorage;
+        private HttpClient _httpClient;
+        private IAuthorization _authorization;
+        private ILocalStorage _localStorage;
 
         public MainPage()
         {
-            _httpClient = new HttpClient();
-            _localStorage = new LocalStorage();
+            this.InitializeComponent();
+
+            _httpClient = App.Container.Resolve<HttpClient>();
+            _authorization = App.Container.Resolve<IAuthorization>();
+            _localStorage = App.Container.Resolve<ILocalStorage>();
 
             if (string.IsNullOrWhiteSpace(_localStorage.ReadVariableValue("ApiKey").ToString()))
             {
                 Debug.WriteLine("ApiKey not stored.");
 
                 var apiKey = _localStorage.ReadVariableValue("ApiKey");
-
-                _authorization = new Auth(new AuthorizationService(new AuthorizationRepository(_httpClient), new LocalStorage()));
 
                 var loginParams = new List<KeyValuePair<string, string>>
                 {
@@ -46,9 +46,8 @@ namespace Wallet
 
                 Task.Run(() => _authorization.Authorize(_httpClient, loginParams, uri)).Wait();
             }
-            Debug.WriteLine("ApiKey read from local storage.");
 
-            this.InitializeComponent();
+            Debug.WriteLine("ApiKey read from local storage.");
         }
     }
 }

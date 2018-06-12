@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "UAP,Version=v10.0.10586": {
+      "Autofac/4.8.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -2490,6 +2503,7 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
+          "Autofac": "4.8.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
           "Wallet.Authorization": "1.0.0",
           "Wallet.Common": "1.0.0",
@@ -2594,6 +2608,19 @@
       }
     },
     "UAP,Version=v10.0.10586/win10-arm": {
+      "Autofac/4.8.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -5119,6 +5146,7 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
+          "Autofac": "4.8.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
           "Wallet.Authorization": "1.0.0",
           "Wallet.Common": "1.0.0",
@@ -5223,6 +5251,19 @@
       }
     },
     "UAP,Version=v10.0.10586/win10-arm-aot": {
+      "Autofac/4.8.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -7784,6 +7825,7 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
+          "Autofac": "4.8.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
           "Wallet.Authorization": "1.0.0",
           "Wallet.Common": "1.0.0",
@@ -7888,6 +7930,19 @@
       }
     },
     "UAP,Version=v10.0.10586/win10-arm64-aot": {
+      "Autofac/4.8.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -10429,6 +10484,7 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
+          "Autofac": "4.8.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
           "Wallet.Authorization": "1.0.0",
           "Wallet.Common": "1.0.0",
@@ -10533,6 +10589,19 @@
       }
     },
     "UAP,Version=v10.0.10586/win10-x64": {
+      "Autofac/4.8.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -13067,6 +13136,7 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
+          "Autofac": "4.8.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
           "Wallet.Authorization": "1.0.0",
           "Wallet.Common": "1.0.0",
@@ -13171,6 +13241,19 @@
       }
     },
     "UAP,Version=v10.0.10586/win10-x64-aot": {
+      "Autofac/4.8.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -15741,6 +15824,7 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
+          "Autofac": "4.8.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
           "Wallet.Authorization": "1.0.0",
           "Wallet.Common": "1.0.0",
@@ -15845,6 +15929,19 @@
       }
     },
     "UAP,Version=v10.0.10586/win10-x86": {
+      "Autofac/4.8.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -18379,6 +18476,7 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
+          "Autofac": "4.8.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
           "Wallet.Authorization": "1.0.0",
           "Wallet.Common": "1.0.0",
@@ -18483,6 +18581,19 @@
       }
     },
     "UAP,Version=v10.0.10586/win10-x86-aot": {
+      "Autofac/4.8.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel": "4.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Autofac.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -21053,6 +21164,7 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
+          "Autofac": "4.8.1",
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
           "Wallet.Authorization": "1.0.0",
           "Wallet.Common": "1.0.0",
@@ -21158,6 +21270,19 @@
     }
   },
   "libraries": {
+    "Autofac/4.8.1": {
+      "sha512": "aIT9rupCOdab5RMfxvWTBmOxGU77tLqmvSF4V89SzV6oQcJrtuKw/Xp55xy9EijSktbMka55SbroAPOyT+lziw==",
+      "type": "package",
+      "path": "autofac/4.8.1",
+      "files": [
+        "autofac.4.8.1.nupkg.sha512",
+        "autofac.nuspec",
+        "lib/net45/Autofac.dll",
+        "lib/net45/Autofac.xml",
+        "lib/netstandard1.1/Autofac.dll",
+        "lib/netstandard1.1/Autofac.xml"
+      ]
+    },
     "Microsoft.CSharp/4.3.0": {
       "sha512": "P+MBhIM0YX+JqROuf7i306ZLJEjQYA9uUyRDE+OqwUI5sh41e2ZbPQV3LfAPh+29cmceE1pUffXsGfR4eMY3KA==",
       "type": "package",
