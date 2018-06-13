@@ -2552,7 +2552,8 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
-          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -5195,7 +5196,8 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
-          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -7874,7 +7876,8 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
-          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -10533,7 +10536,8 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
-          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -13185,7 +13189,8 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
-          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -15873,7 +15878,8 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
-          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -18525,7 +18531,8 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
-          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -21213,7 +21220,8 @@
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
-          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}

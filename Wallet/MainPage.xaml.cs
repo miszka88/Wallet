@@ -20,6 +20,8 @@ namespace Wallet
     {
         private HttpClient _httpClient;
         private IAuthorization _authorization;
+        private IAccountDataService _accountDataService;
+
         private ILocalStorage _localStorage;
 
         public MainPage()
@@ -28,6 +30,8 @@ namespace Wallet
 
             _httpClient = App.Container.Resolve<HttpClient>();
             _authorization = App.Container.Resolve<IAuthorization>();
+            _accountDataService = App.Container.Resolve<IAccountDataService>();
+
             _localStorage = App.Container.Resolve<ILocalStorage>();
 
 
@@ -52,6 +56,8 @@ namespace Wallet
             {
                 Debug.WriteLine("ApiKey read from local storage.");
             }
+
+            Task.Run(() => _accountDataService.GetUserAccounts()).Wait();
 #endif
         }
     }
