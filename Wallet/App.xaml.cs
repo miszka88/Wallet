@@ -2,7 +2,6 @@
 using System;
 using System.Net.Http;
 using Wallet.Authorization;
-using Wallet.Common.DEBUG_HELPERS;
 using Wallet.Domain.Repositories;
 using Wallet.Domain.Services;
 using Wallet.Repositories;
@@ -39,12 +38,6 @@ namespace Wallet
         private void ConfigureIoC()
         {
             var builder = new ContainerBuilder();
-
-            #region -- just for DEBUG purpose --
-
-            builder.RegisterType<DebugHelper>().AsSelf().SingleInstance();
-
-            #endregion
 
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             builder.RegisterType<MainPage>().AsSelf();
