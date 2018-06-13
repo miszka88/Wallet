@@ -4,7 +4,8 @@ namespace Wallet.Domain.Services
 {
     public interface ILocalStorage
     {
-        void StoreVariable(KeyValuePair<string, string> variable);
-        object ReadVariableValue(string variableName);
+        void StoreVariable(KeyValuePair<string, string> variableName);
+        object ReadVariableValue(string key);
+        void RemoveStoredValue(string key);
     }
 }

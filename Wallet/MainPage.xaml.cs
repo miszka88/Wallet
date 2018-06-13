@@ -9,7 +9,6 @@ using Wallet.Common.Helpers;
 using Wallet.Domain.Services;
 using Windows.UI.Xaml.Controls;
 
-
 //Szablon elementu Pusta strona jest udokumentowany na stronie https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x415
 
 namespace Wallet
@@ -31,14 +30,17 @@ namespace Wallet
             _authorization = App.Container.Resolve<IAuthorization>();
             _localStorage = App.Container.Resolve<ILocalStorage>();
 
-            if (string.IsNullOrWhiteSpace(_localStorage.ReadVariableValue("ApiKey").ToString()))
+
+            var apiKey = _localStorage.ReadVariableValue("ApiKey");
+#if DEBUG
+            if (apiKey == null)
             {
                 Debug.WriteLine("ApiKey not stored.");
 
-                var apiKey = _localStorage.ReadVariableValue("ApiKey");
-
                 var loginParams = new List<KeyValuePair<string, string>>
                 {
+                    new KeyValuePair<string, string>("email", ""),
+                    new KeyValuePair<string, string>("password", "")
                 };
 
                 var uri = UriBuilderHelper.BuildUri(AccountAction.Session, ResponseType.Json);
@@ -49,8 +51,8 @@ namespace Wallet
             else
             {
                 Debug.WriteLine("ApiKey read from local storage.");
-                Debug.WriteLine($"ApiKey Value: {_localStorage.ReadVariableValue("ApiKey").ToString()}");
             }
+#endif
         }
     }
 }

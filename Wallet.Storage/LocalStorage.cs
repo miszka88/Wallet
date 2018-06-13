@@ -6,15 +6,10 @@ namespace Wallet.Storage
 {
     public class LocalStorage : ILocalStorage
     {
-        private ApplicationDataContainer _localSettings;
-        private StorageFolder _localFolder;
+        private readonly ApplicationDataContainer _localSettings;
+        private readonly StorageFolder _localFolder;
 
         public LocalStorage()
-        {
-            SetupLocalEnvironment();
-        }
-
-        private void SetupLocalEnvironment()
         {
             _localSettings = ApplicationData.Current.LocalSettings;
             _localFolder = ApplicationData.Current.LocalFolder;
@@ -25,9 +20,14 @@ namespace Wallet.Storage
             _localSettings.Values[variable.Key] = variable.Value;
         }
 
-        public object ReadVariableValue(string variableName)
+        public object ReadVariableValue(string key)
         {
-            return _localSettings.Values[variableName];
+            return _localSettings.Values[key];
+        }
+
+        public void RemoveStoredValue(string key)
+        {
+            _localSettings.Values.Remove(key);
         }
     }
 }
