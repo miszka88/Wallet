@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Wallet.Common;
 using Wallet.Common.Helpers;
@@ -34,6 +35,12 @@ namespace Wallet.Services
             var rawData = await result.Content.ReadAsStringAsync();
 
             var accountList = JsonConvert.DeserializeObject<UserAccountClass[]>(rawData);
+#if DEBUG
+            foreach (var accout in accountList)
+            {
+                Debug.WriteLine($"{accout.UserAccount.BankName}|{accout.UserAccount.DisplayName}|{accout.UserAccount.Balance} {accout.UserAccount.CurrencyName}|{accout.UserAccount.IsDefaultWallet}");
+            }
+#endif
 
             return accountList;
         }
