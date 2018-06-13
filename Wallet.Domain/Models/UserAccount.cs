@@ -2,7 +2,7 @@
 
 namespace Wallet.Domain.Models
 {
-    public partial class UserAccount
+    public class UserAccount
     {
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -23,10 +23,10 @@ namespace Wallet.Domain.Models
         public long Position { get; set; }
 
         [JsonProperty("plain_iban")]
-        public object PlainIban { get; set; }
+        public string PlainIban { get; set; }
 
         [JsonProperty("currency_funds_available")]
-        public object CurrencyFundsAvailable { get; set; }
+        public string CurrencyFundsAvailable { get; set; }
 
         [JsonProperty("display_name")]
         public string DisplayName { get; set; }
@@ -47,7 +47,7 @@ namespace Wallet.Domain.Models
         public bool IsDefaultWallet { get; set; }
     }
 
-    public partial class UserAccountClass
+    public class UserAccountClass
     {
         [JsonProperty("user_account")]
         public UserAccount UserAccount { get; set; }
