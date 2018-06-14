@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Wallet.Authorization;
@@ -57,7 +58,17 @@ namespace Wallet
                 Debug.WriteLine("ApiKey read from local storage.");
             }
 
-            Task.Run(() => _accountDataService.GetUserAccounts()).Wait();
+            Task.Run(async () =>
+            {
+                var accountList = await _accountDataService.GetUserAccounts();
+
+                Debug.WriteLine(string.Join("\n", accountList.Where(a => !string.IsNullOrWhiteSpace(a.UserAccount.DisplayName)).Select(x => $"Id:{x.UserAccount.Id} | DispayName:{x.UserAccount.DisplayName}")));
+
+                var accountId = accountList
+                    .SingleOrDefault(a => a.UserAccount.DisplayName.Contains("gotówka")).UserAccount.Id;
+
+                await _accountDataService.GetAccountTransactionsById(accountId);
+            }).Wait();
 #endif
         }
     }

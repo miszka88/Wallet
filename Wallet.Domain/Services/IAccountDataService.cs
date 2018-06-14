@@ -7,5 +7,6 @@ namespace Wallet.Domain.Services
     public interface IAccountDataService
     {
         Task<IEnumerable<UserAccountClass>> GetUserAccounts();
+        Task<IEnumerable<MoneyTransactionClass>> GetAccountTransactionsById(long accountId);
     }
 }

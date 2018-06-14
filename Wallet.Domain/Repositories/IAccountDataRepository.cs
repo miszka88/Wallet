@@ -6,6 +6,6 @@ namespace Wallet.Domain.Repositories
 {
     public interface IAccountDataRepository
     {
-        Task<HttpResponseMessage> GetUserAccounts(Uri uri);
+        Task<HttpResponseMessage> Get(Uri uri);
     }
 }

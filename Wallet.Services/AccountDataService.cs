@@ -16,19 +16,19 @@ namespace Wallet.Services
         private readonly IAccountDataRepository _accountDataRepository;
         private readonly ILocalStorage _localStorage;
 
-        private string ApiKey { get; }
+        private KeyValuePair<string, string> ApiKeyParam { get; }
 
         public AccountDataService(IAccountDataRepository accountDataRepository, ILocalStorage localStorage)
         {
             _accountDataRepository = accountDataRepository;
             _localStorage = localStorage;
 
-            ApiKey = _localStorage.ReadVariableValue("ApiKey").ToString();
+            ApiKeyParam = new KeyValuePair<string, string>("api_key", _localStorage.ReadVariableValue("ApiKey").ToString());
         }
         public async Task<IEnumerable<UserAccountClass>> GetUserAccounts()
         {
-            var uri = UriBuilderHelper.BuildUri(AccountAction.UserAccounts, ResponseType.Json, new KeyValuePair<string, string>("api_key", ApiKey));
-            var result = await _accountDataRepository.GetUserAccounts(uri);
+            var uri = UriBuilderHelper.BuildUri(AccountAction.UserAccounts, ResponseType.Json, ApiKeyParam);
+            var result = await _accountDataRepository.Get(uri);
 
             if (result == null) return null;
 
@@ -43,6 +43,28 @@ namespace Wallet.Services
 #endif
 
             return accountList;
+        }
+
+        public async Task<IEnumerable<MoneyTransactionClass>> GetAccountTransactionsById(long accountId)
+        {
+            var accountIdParam = new KeyValuePair<string, string>("user_account_id", accountId.ToString());
+            var uri = UriBuilderHelper.BuildUri(AccountAction.Transactions, ResponseType.Json, ApiKeyParam, accountIdParam);
+            var result = await _accountDataRepository.Get(uri);
+
+            if (result == null) return null;
+
+            var rawData = await result.Content.ReadAsStringAsync();
+
+            var accountTransactions = JsonConvert.DeserializeObject<MoneyTransactionClass[]>(rawData);
+
+#if DEBUG
+            foreach (var t in accountTransactions)
+            {
+                Debug.WriteLine($"Transaction.Id:{t.MoneyTransaction.Id}|{t.MoneyTransaction.Description}|{t.MoneyTransaction.Amount} {t.MoneyTransaction.CurrencyName}");
+            }
+#endif
+
+            return accountTransactions;
         }
     }
 }

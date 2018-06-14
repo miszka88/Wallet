@@ -2,6 +2,12 @@
 
 namespace Wallet.Domain.Models
 {
+    public class UserAccountClass
+    {
+        [JsonProperty("user_account")]
+        public UserAccount UserAccount { get; set; }
+    }
+
     public class UserAccount
     {
         [JsonProperty("id")]
@@ -45,11 +51,5 @@ namespace Wallet.Domain.Models
 
         [JsonProperty("is_default_wallet")]
         public bool IsDefaultWallet { get; set; }
-    }
-
-    public class UserAccountClass
-    {
-        [JsonProperty("user_account")]
-        public UserAccount UserAccount { get; set; }
     }
 }
