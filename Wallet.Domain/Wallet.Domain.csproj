@@ -113,7 +113,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccountDataRepository.cs" />
     <Compile Include="Repositories\IAuthorizationRepository.cs" />
+    <Compile Include="Repositories\ICategoryRepository.cs" />
     <Compile Include="Services\IAuthorizationService.cs" />
+    <Compile Include="Services\ICategoryService.cs" />
     <Compile Include="Services\ILocalStorage.cs" />
     <Compile Include="Services\IAccountDataService.cs" />
     <EmbeddedResource Include="Properties\Wallet.Domain.rd.xml" />
@@ -126,7 +128,12 @@
       <Version>11.0.2</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Wallet.Common\Wallet.Common.csproj">
+      <Project>{E86159AE-BA91-4AF2-9C75-0F744C78C60F}</Project>
+      <Name>Wallet.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

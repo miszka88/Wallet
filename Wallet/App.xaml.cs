@@ -42,11 +42,15 @@ namespace Wallet
             builder.RegisterType<HttpClient>().AsSelf().SingleInstance();
             builder.RegisterType<MainPage>().AsSelf();
 
+            builder.RegisterType<Auth>().As<IAuthorization>();
+
             builder.RegisterType<AuthorizationRepository>().As<IAuthorizationRepository>();
             builder.RegisterType<AuthorizationService>().As<IAuthorizationService>();
             builder.RegisterType<AccountDataRepository>().As<IAccountDataRepository>();
             builder.RegisterType<AccountDataService>().As<IAccountDataService>();
-            builder.RegisterType<Auth>().As<IAuthorization>();
+            builder.RegisterType<CategoryRepository>().As<ICategoryRepository>();
+            builder.RegisterType<CategoryService>().As<ICategoryService>();
+
             builder.RegisterType<LocalStorage>().As<ILocalStorage>();
 
             Container = builder.Build();

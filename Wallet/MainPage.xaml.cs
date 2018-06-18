@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Wallet.Authorization;
@@ -19,9 +18,10 @@ namespace Wallet
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private HttpClient _httpClient;
-        private IAuthorization _authorization;
-        private IAccountDataService _accountDataService;
+        private readonly HttpClient _httpClient;
+        private readonly IAuthorization _authorization;
+        private readonly IAccountDataService _accountDataService;
+        private readonly ICategoryService _categoryService;
 
         private ILocalStorage _localStorage;
 
@@ -32,6 +32,7 @@ namespace Wallet
             _httpClient = App.Container.Resolve<HttpClient>();
             _authorization = App.Container.Resolve<IAuthorization>();
             _accountDataService = App.Container.Resolve<IAccountDataService>();
+            _categoryService = App.Container.Resolve<ICategoryService>();
 
             _localStorage = App.Container.Resolve<ILocalStorage>();
 
@@ -60,14 +61,19 @@ namespace Wallet
 
             Task.Run(async () =>
             {
-                var accountList = await _accountDataService.GetUserAccounts();
+                //var accountsData = await _accountDataService.GetUserAccountsData();
+                //var accountsList = await _accountDataService.GetUserAccountsList();
+                //var walletsList = await _accountDataService.GetDefaultUserWallet();
+                //await _accountDataService.AddTransaction(new MoneyTransaction(), 1);
 
-                Debug.WriteLine(string.Join("\n", accountList.Where(a => !string.IsNullOrWhiteSpace(a.UserAccount.DisplayName)).Select(x => $"Id:{x.UserAccount.Id} | DispayName:{x.UserAccount.DisplayName}")));
+                await _categoryService.GetAll();
 
-                var accountId = accountList
-                    .SingleOrDefault(a => a.UserAccount.DisplayName.Contains("gotówka")).UserAccount.Id;
+                //Debug.WriteLine(string.Join("\n", accountsData.Where(a => !string.IsNullOrWhiteSpace(a.UserAccount.DisplayName)).Select(x => $"Id:{x.UserAccount.Id} | DispayName:{x.UserAccount.DisplayName}")));
 
-                await _accountDataService.GetAccountTransactionsById(accountId);
+                //var accountId = accountsData
+                //    .SingleOrDefault(a => a.UserAccount.DisplayName.Contains("gotówka")).UserAccount.Id;
+
+                //await _accountDataService.GetAccountTransactionsById(accountId);
             }).Wait();
 #endif
         }
