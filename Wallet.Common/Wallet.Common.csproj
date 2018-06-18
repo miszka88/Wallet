@@ -111,6 +111,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseType.cs" />
     <Compile Include="Helpers\UriBuilderHelper.cs" />
+    <Compile Include="TransactionDirectionEnum.cs" />
     <EmbeddedResource Include="Properties\Wallet.Common.rd.xml" />
   </ItemGroup>
   <ItemGroup>

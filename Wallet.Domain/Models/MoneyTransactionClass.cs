@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using Wallet.Common;
 
 namespace Wallet.Domain.Models
 {
@@ -64,5 +65,14 @@ namespace Wallet.Domain.Models
 
         [JsonProperty("tag_string")]
         public string TagString { get; set; }
+
+        [JsonProperty("direction")]
+        public TransactionDirection.Type Direction { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("client_assigned_id")]
+        public long ClientAssignedId { get; set; }
     }
 }
