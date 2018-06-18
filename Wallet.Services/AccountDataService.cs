@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -67,6 +68,50 @@ namespace Wallet.Services
 
             return accountTransactions;
         }
+
+        public async Task AddTransaction(MoneyTransaction transaction, long walletId)
+        {
+#if DEBUG
+            var userDefaultWalletId = await GetDefaultUserWallet();
+            var userAccountId = userDefaultWalletId.Single().Key;
+
+            transaction.Direction = TransactionDirection.Type.Deposit;
+            if (transaction.Direction == TransactionDirection.Type.Deposit) transaction.CategoryId = 7748005;
+            else transaction.CategoryId = 6328643;
+
+            var transactionData = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("money_transaction[category_id]", transaction.CategoryId.ToString()), // category id for deposit: 7748005, for withdrawal: 6328643
+                new KeyValuePair<string, string>("money_transaction[currency_amount]", "90"),
+                new KeyValuePair<string, string>("money_transaction[direction]", transaction.Direction.ToString()),
+                new KeyValuePair<string, string>("money_transaction[name]", "fake_data"),
+                new KeyValuePair<string, string>("money_transaction[tag_string]", "APP_WALLET"),
+                new KeyValuePair<string, string>("money_transaction[transaction_on]", new DateTime(2018,06,17).ToString()),
+                new KeyValuePair<string, string>("money_transaction[user_account_id]", userAccountId.ToString()),
+                new KeyValuePair<string, string>("money_transaction[client_assigned_id]", DateTime.Now.Ticks.ToString())
+            };
+
+#else
+            var transactionData = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("money_transaction[user_account_id]", transaction.UserAccountId.ToString()),
+                new KeyValuePair<string, string>("money_transaction[category_id]", transaction.CategoryId.ToString()),
+                new KeyValuePair<string, string>("money_transaction[currency_amount]", transaction.CurrencyAmount),
+                new KeyValuePair<string, string>("money_transaction[currency_name]", transaction.CurrencyName),
+                new KeyValuePair<string, string>("money_transaction[direction]", transaction.Direction),
+                new KeyValuePair<string, string>("money_transaction[tag_string]", transaction.TagString), // can be a List<string>
+                new KeyValuePair<string, string>("money_transaction[name]", transaction.Name),
+                new KeyValuePair<string, string>("money_transaction[transaction_on]", transaction.TransactionOn), // dd-MM-yyyy
+                new KeyValuePair<string, string>("money_transaction[client_assigned_id]", DateTime.Now.Ticks.ToString())
+
+            };
+
+#endif
+            var uri = UriBuilderHelper.BuildUri(AccountAction.Transactions, ResponseType.Json, ApiKeyParam);
+
+            await _accountDataRepository.AddTransaction(transactionData, uri);
+        }
+
         public async Task<IDictionary<long, string>> GetUserAccountsList()
         {
             var accountsData = await GetUserAccountsData();

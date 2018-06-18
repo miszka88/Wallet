@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -18,12 +19,22 @@ namespace Wallet.Repositories
         {
             var response = await _httpClient.GetAsync(uri);
 
+            Debug.WriteLine($"Repository.Get() | Server response: {(int)response.StatusCode}-{response.StatusCode}");
+
             if (!response.IsSuccessStatusCode) return null;
-#if DEBUG
-            Debug.WriteLine($"Reposotory.Get | Server response: {(int)response.StatusCode} {response.StatusCode}");
-#endif
 
             return response;
+        }
+
+        public async Task<bool> AddTransaction(IEnumerable<KeyValuePair<string, string>> transaction, Uri uri)
+        {
+            var postContent = new FormUrlEncodedContent(transaction);
+
+            var response = await _httpClient.PostAsync(uri, postContent);
+
+            Debug.WriteLine($"Repository.AddTransaction() | Server response: {(int)response.StatusCode}-{response.StatusCode}");
+
+            return response.IsSuccessStatusCode && response.Content != null;
         }
     }
 }
