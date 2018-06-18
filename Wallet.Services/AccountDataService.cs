@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Wallet.Common;
 using Wallet.Common.Helpers;
@@ -25,7 +26,7 @@ namespace Wallet.Services
 
             ApiKeyParam = new KeyValuePair<string, string>("api_key", _localStorage.ReadVariableValue("ApiKey").ToString());
         }
-        public async Task<IEnumerable<UserAccountClass>> GetUserAccounts()
+        public async Task<IEnumerable<UserAccountClass>> GetUserAccountsData()
         {
             var uri = UriBuilderHelper.BuildUri(AccountAction.UserAccounts, ResponseType.Json, ApiKeyParam);
             var result = await _accountDataRepository.Get(uri);
@@ -34,15 +35,15 @@ namespace Wallet.Services
 
             var rawData = await result.Content.ReadAsStringAsync();
 
-            var accountList = JsonConvert.DeserializeObject<UserAccountClass[]>(rawData);
+            var accountsData = JsonConvert.DeserializeObject<UserAccountClass[]>(rawData);
 #if DEBUG
-            foreach (var accout in accountList)
+            foreach (var accout in accountsData)
             {
                 Debug.WriteLine($"{accout.UserAccount.BankName}|{accout.UserAccount.DisplayName}|{accout.UserAccount.Balance} {accout.UserAccount.CurrencyName}|{accout.UserAccount.IsDefaultWallet}");
             }
 #endif
 
-            return accountList;
+            return accountsData;
         }
 
         public async Task<IEnumerable<MoneyTransactionClass>> GetAccountTransactionsById(long accountId)
@@ -65,6 +66,41 @@ namespace Wallet.Services
 #endif
 
             return accountTransactions;
+        }
+        public async Task<IDictionary<long, string>> GetUserAccountsList()
+        {
+            var accountsData = await GetUserAccountsData();
+
+            var accountsList = accountsData.ToDictionary(x => x.UserAccount.Id, x => x.UserAccount.DisplayName);
+
+#if DEBUG
+            Debug.WriteLine("Accounts List:");
+            foreach (var item in accountsList)
+            {
+                Debug.WriteLine($"{item.Key} | {item.Value}");
+            }
+#endif
+
+            return accountsList;
+        }
+
+        public async Task<IDictionary<long, string>> GetDefaultUserWallet()
+        {
+            var accountsData = await GetUserAccountsData();
+
+            var accountsList = accountsData
+                .Where(ad => ad.UserAccount.IsDefaultWallet)
+                .ToDictionary(x => x.UserAccount.Id, x => x.UserAccount.DisplayName);
+
+#if DEBUG
+            Debug.WriteLine("Wallets List:");
+            foreach (var item in accountsList)
+            {
+                Debug.WriteLine($"{item.Key} | {item.Value}");
+            }
+#endif
+
+            return accountsList;
         }
     }
 }

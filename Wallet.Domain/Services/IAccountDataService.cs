@@ -6,7 +6,9 @@ namespace Wallet.Domain.Services
 {
     public interface IAccountDataService
     {
-        Task<IEnumerable<UserAccountClass>> GetUserAccounts();
+        Task<IEnumerable<UserAccountClass>> GetUserAccountsData();
         Task<IEnumerable<MoneyTransactionClass>> GetAccountTransactionsById(long accountId);
+        Task<IDictionary<long, string>> GetUserAccountsList();
+        Task<IDictionary<long, string>> GetDefaultUserWallet();
     }
 }
