@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="AccountDataRepository.cs" />
     <Compile Include="AuthorizationRepository.cs" />
+    <Compile Include="CategoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Wallet.Repositories.rd.xml" />
   </ItemGroup>

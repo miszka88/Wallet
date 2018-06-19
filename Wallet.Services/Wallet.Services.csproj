@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="AccountDataService.cs" />
     <Compile Include="AuthorizationService.cs" />
+    <Compile Include="CategoryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Wallet.Services.rd.xml" />
   </ItemGroup>

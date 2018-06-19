@@ -9,13 +9,13 @@ namespace Wallet.Repositories
 {
     public class AccountDataRepository : IAccountDataRepository
     {
-        public HttpClient _httpClient { get; set; }
+        private readonly HttpClient _httpClient;
 
         public AccountDataRepository(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-        public async Task<HttpResponseMessage> Get(Uri uri)
+        public async Task<HttpResponseMessage> GetAll(Uri uri)
         {
             var response = await _httpClient.GetAsync(uri);
 

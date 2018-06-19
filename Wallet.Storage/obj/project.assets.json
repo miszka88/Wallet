@@ -2453,12 +2453,26 @@
           }
         }
       },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
       "Wallet.Domain/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "11.0.2",
+          "Wallet.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -4957,12 +4971,26 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
       "Wallet.Domain/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "11.0.2",
+          "Wallet.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -7497,12 +7525,26 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
       "Wallet.Domain/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "11.0.2",
+          "Wallet.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -10017,12 +10059,26 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
       "Wallet.Domain/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "11.0.2",
+          "Wallet.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -12530,12 +12586,26 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
       "Wallet.Domain/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "11.0.2",
+          "Wallet.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -15079,12 +15149,26 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
       "Wallet.Domain/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "11.0.2",
+          "Wallet.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -17592,12 +17676,26 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
       "Wallet.Domain/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "11.0.2",
+          "Wallet.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -20141,12 +20239,26 @@
           "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
+      "Wallet.Common/1.0.0": {
+        "type": "project",
+        "framework": "UAP,Version=v10.0.10586",
+        "dependencies": {
+          "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5"
+        },
+        "compile": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Wallet.Common.dll": {}
+        }
+      },
       "Wallet.Domain/1.0.0": {
         "type": "project",
         "framework": "UAP,Version=v10.0.10586",
         "dependencies": {
           "Microsoft.NETCore.UniversalWindowsPlatform": "6.1.5",
-          "Newtonsoft.Json": "11.0.2"
+          "Newtonsoft.Json": "11.0.2",
+          "Wallet.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Wallet.Domain.dll": {}
@@ -30068,6 +30180,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "Wallet.Common/1.0.0": {
+      "type": "project",
+      "path": "../Wallet.Common/Wallet.Common.csproj",
+      "msbuildProject": "../Wallet.Common/Wallet.Common.csproj"
+    },
     "Wallet.Domain/1.0.0": {
       "type": "project",
       "path": "../Wallet.Domain/Wallet.Domain.csproj",
@@ -30087,11 +30204,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\git-repos\\Wallet\\Wallet.Storage\\Wallet.Storage.csproj",
+      "projectUniqueName": "D:\\git-repos\\wallet\\Wallet.Storage\\Wallet.Storage.csproj",
       "projectName": "Wallet.Storage",
-      "projectPath": "D:\\git-repos\\Wallet\\Wallet.Storage\\Wallet.Storage.csproj",
+      "projectPath": "D:\\git-repos\\wallet\\Wallet.Storage\\Wallet.Storage.csproj",
       "packagesPath": "C:\\Users\\misza\\.nuget\\packages\\",
-      "outputPath": "D:\\git-repos\\Wallet\\Wallet.Storage\\obj\\",
+      "outputPath": "D:\\git-repos\\wallet\\Wallet.Storage\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -30111,8 +30228,8 @@
       "frameworks": {
         "uap10.0.10586": {
           "projectReferences": {
-            "D:\\git-repos\\Wallet\\Wallet.Domain\\Wallet.Domain.csproj": {
-              "projectPath": "D:\\git-repos\\Wallet\\Wallet.Domain\\Wallet.Domain.csproj"
+            "D:\\git-repos\\wallet\\Wallet.Domain\\Wallet.Domain.csproj": {
+              "projectPath": "D:\\git-repos\\wallet\\Wallet.Domain\\Wallet.Domain.csproj"
             }
           }
         }

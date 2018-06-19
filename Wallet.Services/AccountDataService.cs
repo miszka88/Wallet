@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Wallet.Common;
@@ -16,13 +15,15 @@ namespace Wallet.Services
     public class AccountDataService : IAccountDataService
     {
         private readonly IAccountDataRepository _accountDataRepository;
+        private readonly ICategoryService _categoryService;
         private readonly ILocalStorage _localStorage;
 
         private KeyValuePair<string, string> ApiKeyParam { get; }
 
-        public AccountDataService(IAccountDataRepository accountDataRepository, ILocalStorage localStorage)
+        public AccountDataService(IAccountDataRepository accountDataRepository, ILocalStorage localStorage, ICategoryService categoryService)
         {
             _accountDataRepository = accountDataRepository;
+            _categoryService = categoryService;
             _localStorage = localStorage;
 
             ApiKeyParam = new KeyValuePair<string, string>("api_key", _localStorage.ReadVariableValue("ApiKey").ToString());
@@ -30,19 +31,13 @@ namespace Wallet.Services
         public async Task<IEnumerable<UserAccountClass>> GetUserAccountsData()
         {
             var uri = UriBuilderHelper.BuildUri(AccountAction.UserAccounts, ResponseType.Json, ApiKeyParam);
-            var result = await _accountDataRepository.Get(uri);
+            var result = await _accountDataRepository.GetAll(uri);
 
             if (result == null) return null;
 
             var rawData = await result.Content.ReadAsStringAsync();
 
             var accountsData = JsonConvert.DeserializeObject<UserAccountClass[]>(rawData);
-#if DEBUG
-            foreach (var accout in accountsData)
-            {
-                Debug.WriteLine($"{accout.UserAccount.BankName}|{accout.UserAccount.DisplayName}|{accout.UserAccount.Balance} {accout.UserAccount.CurrencyName}|{accout.UserAccount.IsDefaultWallet}");
-            }
-#endif
 
             return accountsData;
         }
@@ -51,20 +46,13 @@ namespace Wallet.Services
         {
             var accountIdParam = new KeyValuePair<string, string>("user_account_id", accountId.ToString());
             var uri = UriBuilderHelper.BuildUri(AccountAction.Transactions, ResponseType.Json, ApiKeyParam, accountIdParam);
-            var result = await _accountDataRepository.Get(uri);
+            var result = await _accountDataRepository.GetAll(uri);
 
             if (result == null) return null;
 
             var rawData = await result.Content.ReadAsStringAsync();
 
             var accountTransactions = JsonConvert.DeserializeObject<MoneyTransactionClass[]>(rawData);
-
-#if DEBUG
-            foreach (var t in accountTransactions)
-            {
-                Debug.WriteLine($"Transaction.Id:{t.MoneyTransaction.Id}|{t.MoneyTransaction.Description}|{t.MoneyTransaction.Amount} {t.MoneyTransaction.CurrencyName}");
-            }
-#endif
 
             return accountTransactions;
         }
@@ -75,15 +63,21 @@ namespace Wallet.Services
             var userDefaultWalletId = await GetDefaultUserWallet();
             var userAccountId = userDefaultWalletId.Single().Key;
 
-            transaction.Direction = TransactionDirection.Type.Deposit;
-            if (transaction.Direction == TransactionDirection.Type.Deposit) transaction.CategoryId = 7748005;
-            else transaction.CategoryId = 6328643;
+            transaction.Direction = TransactionDirection.Type.Withdrawal;
+            var categories = await _categoryService.GetAll();
+            // categoryId for deposit: 7748005, for withdrawal: 6328643
+            transaction.CategoryId = 7748005;
+            transaction.CategoryName = categories.Single(c => c.Key == transaction.CategoryId).Value;
+
+            // keep it in realese
+            if (!IsCategoryValidForTransactionDirection(await _categoryService.GetByTransactionDirection(transaction.Direction), transaction.CategoryId))
+                throw new ArgumentException($"Category: {transaction.CategoryName} does not belong to {transaction.Direction} group.");
 
             var transactionData = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("money_transaction[category_id]", transaction.CategoryId.ToString()), // category id for deposit: 7748005, for withdrawal: 6328643
+                new KeyValuePair<string, string>("money_transaction[category_id]", transaction.CategoryId.ToString()),
                 new KeyValuePair<string, string>("money_transaction[currency_amount]", "90"),
-                new KeyValuePair<string, string>("money_transaction[direction]", transaction.Direction.ToString()),
+                new KeyValuePair<string, string>("money_transaction[direction]", transaction.Direction.ToString().ToLower()),
                 new KeyValuePair<string, string>("money_transaction[name]", "fake_data"),
                 new KeyValuePair<string, string>("money_transaction[tag_string]", "APP_WALLET"),
                 new KeyValuePair<string, string>("money_transaction[transaction_on]", new DateTime(2018,06,17).ToString()),
@@ -105,7 +99,6 @@ namespace Wallet.Services
                 new KeyValuePair<string, string>("money_transaction[client_assigned_id]", DateTime.Now.Ticks.ToString())
 
             };
-
 #endif
             var uri = UriBuilderHelper.BuildUri(AccountAction.Transactions, ResponseType.Json, ApiKeyParam);
 
@@ -118,14 +111,6 @@ namespace Wallet.Services
 
             var accountsList = accountsData.ToDictionary(x => x.UserAccount.Id, x => x.UserAccount.DisplayName);
 
-#if DEBUG
-            Debug.WriteLine("Accounts List:");
-            foreach (var item in accountsList)
-            {
-                Debug.WriteLine($"{item.Key} | {item.Value}");
-            }
-#endif
-
             return accountsList;
         }
 
@@ -137,15 +122,14 @@ namespace Wallet.Services
                 .Where(ad => ad.UserAccount.IsDefaultWallet)
                 .ToDictionary(x => x.UserAccount.Id, x => x.UserAccount.DisplayName);
 
-#if DEBUG
-            Debug.WriteLine("Wallets List:");
-            foreach (var item in accountsList)
-            {
-                Debug.WriteLine($"{item.Key} | {item.Value}");
-            }
-#endif
-
             return accountsList;
+        }
+
+        private bool IsCategoryValidForTransactionDirection(IDictionary<long, string> categories, long categoryId)
+        {
+            var isValid = categories.Keys.Contains(categoryId);
+
+            return isValid;
         }
     }
 }
