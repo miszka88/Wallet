@@ -107,8 +107,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\MoneyTransactionClass.cs" />
-    <Compile Include="Models\JsonObject.cs" />
+    <Compile Include="Models\MoneyTransaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

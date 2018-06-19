@@ -1,7 +1,15 @@
-﻿namespace Wallet.Domain.Models
+﻿using Newtonsoft.Json;
+
+namespace Wallet.Domain.Models
 {
+    public class UserClass
+    {
+        [JsonProperty("user")]
+        public User User { get; set; }
+    }
     public class User
     {
-        public string Api_key { get; set; }
+        [JsonProperty("Api_key")]
+        public string ApiKey { get; set; }
     }
 }

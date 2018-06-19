@@ -66,7 +66,7 @@ namespace Wallet.Services
             transaction.Direction = TransactionDirection.Type.Withdrawal;
             var categories = await _categoryService.GetAll();
             // categoryId for deposit: 7748005, for withdrawal: 6328643
-            transaction.CategoryId = 7748005;
+            transaction.CategoryId = 6328643;
             transaction.CategoryName = categories.Single(c => c.Key == transaction.CategoryId).Value;
 
             // keep it in realese
