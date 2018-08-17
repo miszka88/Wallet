@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Wallet.Authorization;
 using Wallet.Common;
 using Wallet.Common.Helpers;
+using Wallet.Domain.Models;
 using Wallet.Domain.Services;
 using Windows.UI.Xaml.Controls;
 
@@ -24,6 +25,8 @@ namespace Wallet
         private readonly ICategoryService _categoryService;
 
         private ILocalStorage _localStorage;
+
+        private IEnumerable<UserAccountClass> UserAccountsList;
 
         public MainPage()
         {
@@ -61,7 +64,9 @@ namespace Wallet
 
             Task.Run(async () =>
             {
-                //var accountsData = await _accountDataService.GetUserAccountsData();
+                UserAccountsList = await _accountDataService.GetUserAccountsData();
+
+                //this.AccountsList.ItemsSource = accountsData;
                 //var accountsList = await _accountDataService.GetUserAccountsList();
                 //var walletsList = await _accountDataService.GetDefaultUserWallet();
                 //await _accountDataService.AddTransaction(new MoneyTransaction(), 1);

@@ -5,10 +5,23 @@
     xmlns:local="using:Wallet"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    
+    xmlns:data="using:Wallet.Domain.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <TextBlock HorizontalAlignment="Left" Margin="58,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="361" FontFamily="Segoe UI Light"><Run Text="Lista "/><Run Text="kont"/></TextBlock>
+        
+        <ListView x:Name="AccountsList" ItemsSource="{x:Bind UserAccountsList}" HorizontalAlignment="Left" Height="254" VerticalAlignment="Top" Width="692" Margin="58,95,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="Item" x:DataType="data:UserAccountClass">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind UserAccount.DisplayName}" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"/>
+                        <TextBlock Text="{x:Bind UserAccount.Balance}" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
+                    </StackPanel>
+                </DataTemplate>
+    </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>
