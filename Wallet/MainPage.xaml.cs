@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Wallet.Authorization;
@@ -27,6 +29,7 @@ namespace Wallet
         private ILocalStorage _localStorage;
 
         private IEnumerable<UserAccountClass> UserAccountsList;
+        private ObservableCollection<MoneyTransactionClass> AccountTransactionsList { get; } = new ObservableCollection<MoneyTransactionClass>();
 
         public MainPage()
         {
@@ -66,12 +69,19 @@ namespace Wallet
             {
                 UserAccountsList = await _accountDataService.GetUserAccountsData();
 
+                var tmp = await _accountDataService.GetAccountTransactionsById(UserAccountsList.First(x => !x.UserAccount.IsDefaultWallet).UserAccount.Id);
+                foreach (var item in tmp)
+                {
+                    AccountTransactionsList.Add(item);
+                }
+
+
                 //this.AccountsList.ItemsSource = accountsData;
                 //var accountsList = await _accountDataService.GetUserAccountsList();
                 //var walletsList = await _accountDataService.GetDefaultUserWallet();
                 //await _accountDataService.AddTransaction(new MoneyTransaction(), 1);
 
-                await _categoryService.GetAll();
+                //await _categoryService.GetAll();
 
                 //Debug.WriteLine(string.Join("\n", accountsData.Where(a => !string.IsNullOrWhiteSpace(a.UserAccount.DisplayName)).Select(x => $"Id:{x.UserAccount.Id} | DispayName:{x.UserAccount.DisplayName}")));
 
@@ -81,6 +91,21 @@ namespace Wallet
                 //await _accountDataService.GetAccountTransactionsById(accountId);
             }).Wait();
 #endif
+        }
+
+        private async void AccountsList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clickedItem = (e.ClickedItem as UserAccountClass).UserAccount;
+
+            if (clickedItem != null) { AccountTransactionsList.Clear(); }
+            else { return; }
+
+            var transactions = await _accountDataService.GetAccountTransactionsById(clickedItem.Id);
+
+            foreach (var item in transactions)
+            {
+                AccountTransactionsList.Add(item);
+            }
         }
     }
 }
