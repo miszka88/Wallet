@@ -69,13 +69,6 @@ namespace Wallet
             {
                 UserAccountsList = await _accountDataService.GetUserAccountsData();
 
-                var tmp = await _accountDataService.GetAccountTransactionsById(UserAccountsList.First(x => !x.UserAccount.IsDefaultWallet).UserAccount.Id);
-                foreach (var item in tmp)
-                {
-                    AccountTransactionsList.Add(item);
-                }
-
-
                 //this.AccountsList.ItemsSource = accountsData;
                 //var accountsList = await _accountDataService.GetUserAccountsList();
                 //var walletsList = await _accountDataService.GetDefaultUserWallet();
@@ -90,17 +83,18 @@ namespace Wallet
 
                 //await _accountDataService.GetAccountTransactionsById(accountId);
             }).Wait();
+            UserAccountsList.GroupBy(x => x.UserAccount.BankName).ToList();
 #endif
         }
 
         private async void AccountsList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var clickedItem = (e.ClickedItem as UserAccountClass).UserAccount;
+            var selectedUserAccount = (UserAccountClass)e.ClickedItem;
 
-            if (clickedItem != null) { AccountTransactionsList.Clear(); }
+            if (selectedUserAccount != null) { AccountTransactionsList.Clear(); }
             else { return; }
 
-            var transactions = await _accountDataService.GetAccountTransactionsById(clickedItem.Id);
+            var transactions = await _accountDataService.GetAccountTransactionsById(selectedUserAccount.UserAccount.Id);
 
             foreach (var item in transactions)
             {

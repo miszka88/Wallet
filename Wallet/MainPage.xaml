@@ -14,15 +14,28 @@
             <ColumnDefinition Width="27*"/>
             <ColumnDefinition Width="98*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Margin="5,10,9,0" TextWrapping="Wrap" FontFamily="Segoe UI Light" Height="24" VerticalAlignment="Top" HorizontalAlignment="Stretch"><Run Text="Lista "/><Run Text="kont"/></TextBlock>
 
-        <ListView x:Name="AccountsList" ItemsSource="{x:Bind UserAccountsList}" HorizontalAlignment="Left" Height="677" VerticalAlignment="Top" Width="261" Margin="5,33,0,0" IsItemClickEnabled="True" ItemClick="AccountsList_ItemClick">
+        <ListView 
+            x:Name="AccountsList" 
+            ItemsSource="{x:Bind UserAccountsList}" 
+            HorizontalAlignment="Left" 
+            Height="677" 
+            VerticalAlignment="Top" 
+            Width="261" 
+            Margin="5,33,0,0" 
+            IsItemClickEnabled="True" 
+            ItemClick="AccountsList_ItemClick">
+            <ListView.Header>
+                <TextBlock Text="Lista kont"/>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="Item" x:DataType="data:UserAccountClass">
                     <StackPanel>
                         <TextBlock Text="{x:Bind UserAccount.DisplayName}" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"/>
-                        <TextBlock Text="{x:Bind UserAccount.Balance}" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}"/>
-                        <TextBlock Text="{x:Bind UserAccount.Id }" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextChromeBlackMediumLowBrush}"/>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}">
+                            <Run Text="{x:Bind UserAccount.Balance}"/>
+                            <Run Text="{x:Bind UserAccount.CurrencyName }"/>
+                        </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -32,6 +45,14 @@
                 <DataTemplate x:Name="Transaction" x:DataType="data:MoneyTransactionClass">
                     <StackPanel>
                         <TextBlock Text="{x:Bind MoneyTransaction.Description}" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"/>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}">
+                            <Run Text="Kategoria:"/>
+                            <Run Text="{x:Bind MoneyTransaction.CategoryName}"/>
+                        </TextBlock>
+                        <TextBlock  Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextChromeBlackMediumLowBrush}">
+                            <Run Text="{x:Bind MoneyTransaction.Amount}"/>
+                            <Run Text="{x:Bind MoneyTransaction.CurrencyName}"/>
+                        </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
