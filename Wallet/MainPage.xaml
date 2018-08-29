@@ -9,6 +9,10 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <CollectionViewSource x:Name="UserAccountsList" x:Key="Accounts" IsSourceGrouped="True"/>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="27*"/>
@@ -17,7 +21,7 @@
 
         <ListView 
             x:Name="AccountsList" 
-            ItemsSource="{x:Bind UserAccountsList}" 
+            ItemsSource="{x:Bind UserAccountsList.View}"
             HorizontalAlignment="Left" 
             Height="677" 
             VerticalAlignment="Top" 
@@ -28,8 +32,17 @@
             <ListView.Header>
                 <TextBlock Text="Lista kont"/>
             </ListView.Header>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate x:DataType="data:GroupedUserAccounts">
+                            <TextBlock Text="{x:Bind Key}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:Name="Item" x:DataType="data:UserAccountClass">
+                <DataTemplate x:DataType="data:UserAccountClass">
                     <StackPanel>
                         <TextBlock Text="{x:Bind UserAccount.DisplayName}" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"/>
                         <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}">
@@ -40,7 +53,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView x:Name="TransactionsList" ItemsSource="{x:Bind AccountTransactionsList}" HorizontalAlignment="Left" Height="677" Margin="0,33,0,0" VerticalAlignment="Top" Width="984" Grid.Column="1" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False">
+        <ListView x:Name="TransactionsList" ItemsSource="{x:Bind AccountTransactions}"  HorizontalAlignment="Left" Height="677" Margin="0,33,0,0" VerticalAlignment="Top" Width="984" Grid.Column="1" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False">
             <ListView.ItemTemplate>
                 <DataTemplate x:Name="Transaction" x:DataType="data:MoneyTransactionClass">
                     <StackPanel>

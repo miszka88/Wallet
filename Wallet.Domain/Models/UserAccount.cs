@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Wallet.Domain.Models
 {
@@ -6,6 +7,11 @@ namespace Wallet.Domain.Models
     {
         [JsonProperty("user_account")]
         public UserAccount UserAccount { get; set; }
+    }
+
+    public class GroupedUserAccounts : List<object>
+    {
+        public object Key { get; set; }
     }
 
     public class UserAccount
