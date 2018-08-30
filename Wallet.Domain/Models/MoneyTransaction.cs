@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using Wallet.Common;
 
 namespace Wallet.Domain.Models
@@ -8,6 +9,11 @@ namespace Wallet.Domain.Models
     {
         [JsonProperty("money_transaction")]
         public MoneyTransaction MoneyTransaction { get; set; }
+    }
+
+    public class GroupedMoneyTransaction : List<object>
+    {
+        public object Key { get; set; }
     }
 
     public class MoneyTransaction

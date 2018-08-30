@@ -37,8 +37,8 @@ namespace Wallet.Services
             var groupedCategories = JsonConvert.DeserializeObject<Category>(response);
 
             var allCategories = groupedCategories.CategoryGroups
-                .SelectMany(g => g.Categories, (g, c) => c)
-                .ToDictionary(d => d.Id, d => d.Name);
+                .SelectMany(group => group.Categories, (group, category) => category)
+                .ToDictionary(category => category.Id, category => category.Name);
 
             return allCategories;
         }

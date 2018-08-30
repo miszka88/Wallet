@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Wallet.Common;
@@ -130,6 +131,43 @@ namespace Wallet.Services
             var isValid = categories.Keys.Contains(categoryId);
 
             return isValid;
+        }
+
+        public async Task<ObservableCollection<GroupedUserAccount>> GetGroupedUserAccounts()
+        {
+            var groupedUserAccounts = new ObservableCollection<GroupedUserAccount>();
+
+            var groups = from account in await GetUserAccountsData()
+                         group account by account.UserAccount.BankName into g
+                         select (new { GroupName = g.Key, Items = g });
+            foreach (var g in groups)
+            {
+                var userAccount = new GroupedUserAccount();
+                userAccount.Key = g.GroupName;
+                userAccount.AddRange(g.Items);
+
+                groupedUserAccounts.Add(userAccount);
+            }
+
+            return groupedUserAccounts;
+        }
+
+        public async Task<ObservableCollection<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId)
+        {
+            var groupedMoneyTransactions = new ObservableCollection<GroupedMoneyTransaction>();
+
+            var groups = from transaction in await GetTransactionsByAccountId(accountId)
+                         group transaction by transaction.MoneyTransaction.TransactionOn into g
+                         select (new { GroupName = g.Key, Items = g });
+            foreach (var g in groups)
+            {
+                var accountTransaction = new GroupedMoneyTransaction();
+                accountTransaction.Key = string.Format($"{g.GroupName.Date:dd MMMM}");
+                accountTransaction.AddRange(g.Items);
+                groupedMoneyTransactions.Add(accountTransaction);
+            }
+
+            return groupedMoneyTransactions;
         }
     }
 }

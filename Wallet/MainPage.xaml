@@ -11,6 +11,7 @@
 
     <Page.Resources>
         <CollectionViewSource x:Name="UserAccountsList" x:Key="Accounts" IsSourceGrouped="True"/>
+        <CollectionViewSource x:Name="AccountTransactionsList" x:Key="Transactions" IsSourceGrouped="True"/>
     </Page.Resources>
 
     <Grid>
@@ -21,7 +22,7 @@
 
         <ListView 
             x:Name="AccountsList" 
-            ItemsSource="{x:Bind UserAccountsList.View}"
+            ItemsSource="{x:Bind UserAccountsList.View, Mode=OneWay}"
             HorizontalAlignment="Left" 
             Height="677" 
             VerticalAlignment="Top" 
@@ -35,14 +36,14 @@
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
-                        <DataTemplate x:DataType="data:GroupedUserAccounts">
+                        <DataTemplate x:DataType="data:GroupedUserAccount">
                             <TextBlock Text="{x:Bind Key}"/>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
             </ListView.GroupStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="data:UserAccountClass">
+                <DataTemplate x:DataType="data:UserAccountObject">
                     <StackPanel>
                         <TextBlock Text="{x:Bind UserAccount.DisplayName}" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"/>
                         <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}">
@@ -53,16 +54,36 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView x:Name="TransactionsList" ItemsSource="{x:Bind AccountTransactions}"  HorizontalAlignment="Left" Height="677" Margin="0,33,0,0" VerticalAlignment="Top" Width="984" Grid.Column="1" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False">
+        <ListView 
+            x:Name="TransactionsList" 
+            ItemsSource="{x:Bind AccountTransactionsList.View, Mode=OneWay}"
+            HorizontalAlignment="Left" 
+            Height="677" 
+            Margin="0,33,0,0" 
+            VerticalAlignment="Top" 
+            Width="984" 
+            Grid.Column="1" >
+            <ListView.Header>
+                <TextBlock Text="Transakcje"/>
+            </ListView.Header>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate x:DataType="data:GroupedMoneyTransaction">
+                            <TextBlock Text="{x:Bind Key}" Style="{ThemeResource SubheaderTextBlockStyle}" FontWeight="Thin"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:Name="Transaction" x:DataType="data:MoneyTransactionClass">
+                <DataTemplate x:Name="Transaction" x:DataType="data:MoneyTransactionObject">
                     <StackPanel>
-                        <TextBlock Text="{x:Bind MoneyTransaction.Description}" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"/>
+                        <TextBlock Text="{x:Bind MoneyTransaction.Description}" Style="{ThemeResource SubtitleTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" FontStretch="SemiExpanded" FontWeight="SemiBold"/>
                         <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}">
-                            <Run Text="Kategoria:"/>
-                            <Run Text="{x:Bind MoneyTransaction.CategoryName}"/>
+                            <Run Text="Kategoria:" FontWeight="Thin"/>
+                            <Run Text="{x:Bind MoneyTransaction.CategoryName}" FontWeight="Medium"/>
                         </TextBlock>
-                        <TextBlock  Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextChromeBlackMediumLowBrush}">
+                        <TextBlock  Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Medium">
                             <Run Text="{x:Bind MoneyTransaction.Amount}"/>
                             <Run Text="{x:Bind MoneyTransaction.CurrencyName}"/>
                         </TextBlock>

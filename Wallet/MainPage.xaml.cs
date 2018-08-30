@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Wallet.Authorization;
@@ -28,8 +27,8 @@ namespace Wallet
 
         private ILocalStorage _localStorage;
 
-        private ObservableCollection<GroupedUserAccounts> UserAccounts { get; } = new ObservableCollection<GroupedUserAccounts>();
-        private ObservableCollection<MoneyTransactionClass> AccountTransactions { get; } = new ObservableCollection<MoneyTransactionClass>();
+        private ObservableCollection<GroupedUserAccount> GroupedUserAccounts { get; set; } = new ObservableCollection<GroupedUserAccount>();
+        private ObservableCollection<GroupedMoneyTransaction> GroupedAccountTransactions { get; set; } = new ObservableCollection<GroupedMoneyTransaction>();
 
         public MainPage()
         {
@@ -65,52 +64,27 @@ namespace Wallet
                 Debug.WriteLine("ApiKey read from local storage.");
             }
 
-            IEnumerable<UserAccountClass> userAccountsList = new List<UserAccountClass>();
 
+
+#endif
             Task.Run(async () =>
             {
-                //this.AccountsList.ItemsSource = accountsData;
-                //var accountsList = await _accountDataService.GetUserAccountsList();
-                //var walletsList = await _accountDataService.GetDefaultUserWallet();
-                //await _accountDataService.AddTransaction(new MoneyTransaction(), 1);
-
-                //await _categoryService.GetAll();
-
-                //Debug.WriteLine(string.Join("\n", accountsData.Where(a => !string.IsNullOrWhiteSpace(a.UserAccount.DisplayName)).Select(x => $"Id:{x.UserAccount.Id} | DispayName:{x.UserAccount.DisplayName}")));
-
-                //var accountId = accountsData
-                //    .SingleOrDefault(a => a.UserAccount.DisplayName.Contains("gotówka")).UserAccount.Id;
-
-                //await _accountDataService.GetAccountTransactionsById(accountId);
-
-                var groupedAccounts = from account in await _accountDataService.GetUserAccountsData()
-                                      group account by account.UserAccount.BankName into g
-                                      select (new { GroupName = g.Key, Items = g });
-                foreach (var g in groupedAccounts)
-                {
-                    GroupedUserAccounts userAccount = new GroupedUserAccounts();
-                    userAccount.Key = g.GroupName;
-                    userAccount.AddRange(g.Items);
-                    UserAccounts.Add(userAccount);
-                }
+                GroupedUserAccounts = await _accountDataService.GetGroupedUserAccounts();
             }).Wait();
-#endif
-            UserAccountsList.Source = UserAccounts;
+
+            UserAccountsList.Source = GroupedUserAccounts;
         }
 
         private async void AccountsList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var selectedUserAccount = (UserAccountClass)e.ClickedItem;
+            var selectedUserAccount = (UserAccountObject)e.ClickedItem;
 
-            if (selectedUserAccount != null) { AccountTransactions.Clear(); }
+            if (selectedUserAccount != null) { GroupedAccountTransactions.Clear(); }
             else { return; }
 
-            var transactions = await _accountDataService.GetAccountTransactionsById(selectedUserAccount.UserAccount.Id);
+            GroupedAccountTransactions = await _accountDataService.GetGroupedTransactionsByAccountId(selectedUserAccount.UserAccount.Id);
 
-            foreach (var item in transactions)
-            {
-                AccountTransactions.Add(item);
-            }
+            AccountTransactionsList.Source = GroupedAccountTransactions;
         }
     }
 }
