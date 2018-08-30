@@ -26,7 +26,7 @@ namespace Wallet.Services
             _categoryService = categoryService;
             _localStorage = localStorage;
 
-            ApiKeyParam = new KeyValuePair<string, string>("api_key", _localStorage.ReadVariableValue("ApiKey").ToString());
+            ApiKeyParam = new KeyValuePair<string, string>("api_key", _localStorage.ReadVariableValue("ApiKey")?.ToString());
         }
         public async Task<IEnumerable<UserAccountClass>> GetUserAccountsData()
         {
