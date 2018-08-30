@@ -4,7 +4,7 @@ using Wallet.Common;
 
 namespace Wallet.Domain.Models
 {
-    public class MoneyTransactionClass
+    public class MoneyTransactionObject
     {
         [JsonProperty("money_transaction")]
         public MoneyTransaction MoneyTransaction { get; set; }

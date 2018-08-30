@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Wallet.Domain.Models
 {
-    public class UserAccountClass
+    public class UserAccountObject
     {
         [JsonProperty("user_account")]
         public UserAccount UserAccount { get; set; }
