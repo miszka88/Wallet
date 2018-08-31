@@ -1,7 +1,5 @@
 ﻿using Autofac;
 using System.Collections.ObjectModel;
-using System.Net.Http;
-using Wallet.Authorization;
 using Wallet.Domain.Models;
 using Wallet.Domain.Services;
 using Windows.UI.Xaml.Controls;
@@ -16,12 +14,8 @@ namespace Wallet
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private readonly HttpClient _httpClient;
-        private readonly IAuthorization _authorization;
         private readonly IAccountDataService _accountDataService;
         private readonly ICategoryService _categoryService;
-
-        private ILocalStorage _localStorage;
 
         private ObservableCollection<GroupedUserAccount> GroupedUserAccounts { get; set; } = new ObservableCollection<GroupedUserAccount>();
         private ObservableCollection<GroupedMoneyTransaction> GroupedAccountTransactions { get; set; } = new ObservableCollection<GroupedMoneyTransaction>();
