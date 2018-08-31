@@ -11,7 +11,7 @@
     xmlns:rules="using:FormValidationUwp.Validation.Rules"
     xmlns:validation="using:FormValidationUwp.Validation">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loading="Grid_Loading">
         <Grid.Resources>
             <validation:ValidationRules x:Key="EmailCheck">
                 <validation:ValidationRules.Rules>
