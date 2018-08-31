@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="Wallet.Views.LoginView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Wallet.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    
+    xmlns:controls="using:FormValidationUwp.Controls"
+    xmlns:rules="using:FormValidationUwp.Validation.Rules"
+    xmlns:validation="using:FormValidationUwp.Validation">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <validation:ValidationRules x:Key="EmailCheck">
+                <validation:ValidationRules.Rules>
+                    <rules:EmailValidationRule/>
+                </validation:ValidationRules.Rules>
+            </validation:ValidationRules>
+        </Grid.Resources>
+        <Grid VerticalAlignment="Center" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="8" Padding="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <controls:ValidatingTextBoxUserControl x:Name="TxtUserName" Grid.Row="0" PlaceholderText="User email" Margin="8" ValidationRules="{StaticResource EmailCheck}" IsValidByDefault="False" MyTextOnTextChanged="TxtUserName_MyTextOnTextChanged" IsValid="False"/>
+            <PasswordBox x:Name="TxtPassword" Grid.Row="1" PlaceholderText="Password" Margin="8" PasswordChanging="TxtPassword_PasswordChanging"/>
+            <CheckBox x:Name="CkbRemember" Grid.Row="2" Content="Remember me" Margin="8" IsEnabled="False"/>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="BtnLogIn" Grid.Column="1" Content="Log In" HorizontalAlignment="Stretch" Background="{ThemeResource ButtonBackgroundThemeBrush}" Foreground="{ThemeResource ButtonForegroundThemeBrush}" Click="BtnLogIn_Click" IsEnabled="False"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
