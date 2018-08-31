@@ -30,8 +30,11 @@ namespace Wallet.Views
             _httpClient = App.Container.Resolve<HttpClient>();
             _authorization = App.Container.Resolve<IAuthorization>();
             _localStorage = App.Container.Resolve<ILocalStorage>();
-
+#if DEBUG
+            _localStorage.RemoveStoredValue("ApiKey");
+#else
             ApiKey = _localStorage.ReadVariableValue("ApiKey");
+#endif
         }
 
         private void Grid_Loading(FrameworkElement sender, object args)
@@ -54,7 +57,8 @@ namespace Wallet.Views
 
             await _authorization.Authorize(_httpClient, loginParams, uri);
 
-            Frame.Navigate(typeof(MainPage));
+            if (_localStorage.ReadVariableValue("ApiKey") != null)
+                Frame.Navigate(typeof(MainPage));
         }
 
         private void TxtPassword_PasswordChanging(PasswordBox sender, PasswordBoxPasswordChangingEventArgs args)

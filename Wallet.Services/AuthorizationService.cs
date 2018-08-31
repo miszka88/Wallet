@@ -24,9 +24,12 @@ namespace Wallet.Services
         public async Task GetApiKey(HttpClient httpClient, IEnumerable<KeyValuePair<string, string>> loginParams, Uri uri)
         {
             var externalApiResponse = await _authorizationRepository.GetApiKey(loginParams, uri);
-            var apiKey = JsonConvert.DeserializeObject<UserClass>(externalApiResponse).User.ApiKey;
+            if (!string.IsNullOrWhiteSpace(externalApiResponse))
+            {
+                var apiKey = JsonConvert.DeserializeObject<JsonObject>(externalApiResponse).User.Api_key;
 
-            _localStorage.StoreVariable(new KeyValuePair<string, string>("ApiKey", apiKey));
+                _localStorage.StoreVariable(new KeyValuePair<string, string>("ApiKey", apiKey));
+            }
         }
     }
 }
