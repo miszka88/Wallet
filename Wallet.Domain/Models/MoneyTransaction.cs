@@ -11,9 +11,10 @@ namespace Wallet.Domain.Models
         public MoneyTransaction MoneyTransaction { get; set; }
     }
 
-    public class GroupedMoneyTransaction : List<object>
+    public class GroupedMoneyTransaction
     {
-        public object Key { get; set; }
+        public DateTimeOffset Key { get; set; }
+        public ICollection<MoneyTransactionObject> Items;
     }
 
     public class MoneyTransaction
