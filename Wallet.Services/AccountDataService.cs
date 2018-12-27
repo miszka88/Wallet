@@ -133,39 +133,21 @@ namespace Wallet.Services
             return isValid;
         }
 
-        public async Task<ObservableCollection<GroupedUserAccount>> GetGroupedUserAccounts()
+        public async Task<IEnumerable<GroupedUserAccount>> GetGroupedUserAccounts()
         {
-            var groupedUserAccounts = new ObservableCollection<GroupedUserAccount>();
+            var userAccoutnsData = await GetUserAccountsData();
+            var groupedUserAccoutnsData = userAccoutnsData.GroupBy(item => item.UserAccount.BankName)
+                         .Select(group => new GroupedUserAccount { Key = group.Key, Items = group.ToList() });
 
-            var groups = from account in await GetUserAccountsData()
-                         group account by account.UserAccount.BankName into g
-                         select (new { GroupName = g.Key, Items = g });
-            foreach (var g in groups)
-            {
-                var userAccount = new GroupedUserAccount();
-                userAccount.Key = g.GroupName;
-                userAccount.AddRange(g.Items);
-
-                groupedUserAccounts.Add(userAccount);
-            }
-
-            return groupedUserAccounts;
+            return groupedUserAccoutnsData;
         }
 
-        public async Task<ObservableCollection<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId)
+        public async Task<IEnumerable<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId)
         {
-            var groupedMoneyTransactions = new ObservableCollection<GroupedMoneyTransaction>();
+            var transactionsData = await GetTransactionsByAccountId(accountId);
 
-            var groups = from transaction in await GetTransactionsByAccountId(accountId)
-                         group transaction by transaction.MoneyTransaction.TransactionOn into g
-                         select (new { GroupName = g.Key, Items = g });
-            foreach (var g in groups)
-            {
-                var accountTransaction = new GroupedMoneyTransaction();
-                accountTransaction.Key = string.Format($"{g.GroupName.Date:dd MMMM}");
-                accountTransaction.AddRange(g.Items);
-                groupedMoneyTransactions.Add(accountTransaction);
-            }
+            var groupedMoneyTransactions = transactionsData.GroupBy(item => item.MoneyTransaction.TransactionOn)
+                .Select(group => new GroupedMoneyTransaction { Key = group.Key, Items = group.ToList() });
 
             return groupedMoneyTransactions;
         }
