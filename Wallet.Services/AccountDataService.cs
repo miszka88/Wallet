@@ -142,14 +142,14 @@ namespace Wallet.Services
             return new ObservableCollection<GroupedUserAccount>(groupedUserAccoutnsData);
         }
 
-        public async Task<IEnumerable<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId)
+        public async Task<ObservableCollection<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId)
         {
             var transactionsData = await GetTransactionsByAccountId(accountId);
 
             var groupedMoneyTransactions = transactionsData.GroupBy(item => item.MoneyTransaction.TransactionOn)
-                .Select(group => new GroupedMoneyTransaction { Key = group.Key, Items = group.ToList() });
+                .Select(group => new GroupedMoneyTransaction(group) { Key = group.Key });
 
-            return groupedMoneyTransactions;
+            return new ObservableCollection<GroupedMoneyTransaction>(groupedMoneyTransactions);
         }
     }
 }
