@@ -133,13 +133,13 @@ namespace Wallet.Services
             return isValid;
         }
 
-        public async Task<IEnumerable<GroupedUserAccount>> GetGroupedUserAccounts()
+        public async Task<ObservableCollection<GroupedUserAccount>> GetGroupedUserAccounts()
         {
             var userAccoutnsData = await GetUserAccountsData();
             var groupedUserAccoutnsData = userAccoutnsData.GroupBy(item => item.UserAccount.BankName)
-                         .Select(group => new GroupedUserAccount { Key = group.Key, Items = group.ToList() });
+                         .Select(group => new GroupedUserAccount(group) { Key = group.Key });
 
-            return groupedUserAccoutnsData;
+            return new ObservableCollection<GroupedUserAccount>(groupedUserAccoutnsData);
         }
 
         public async Task<IEnumerable<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId)

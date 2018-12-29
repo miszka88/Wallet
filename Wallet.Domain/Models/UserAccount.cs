@@ -9,10 +9,11 @@ namespace Wallet.Domain.Models
         public UserAccount UserAccount { get; set; }
     }
 
-    public class GroupedUserAccount
+    public class GroupedUserAccount : List<UserAccountObject>
     {
         public string Key { get; set; }
-        public ICollection<UserAccountObject> Items { get; set; }
+
+        public GroupedUserAccount(IEnumerable<UserAccountObject> items) : base(items) { }
     }
 
     public class UserAccount
