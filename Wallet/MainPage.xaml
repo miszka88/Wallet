@@ -8,86 +8,47 @@
     xmlns:data="using:Wallet.Domain.Models"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
     <Page.Resources>
-        <CollectionViewSource x:Name="UserAccountsList" x:Key="Accounts" IsSourceGrouped="True"/>
-        <CollectionViewSource x:Name="AccountTransactionsList" x:Key="Transactions" IsSourceGrouped="True"/>
+        <CollectionViewSource x:Name="Accounts" IsSourceGrouped="True"/>
     </Page.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="27*"/>
-            <ColumnDefinition Width="98*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <ListView 
-            x:Name="AccountsList" 
-            ItemsSource="{x:Bind UserAccountsList.View, Mode=OneWay}"
-            HorizontalAlignment="Left" 
-            Height="677" 
-            VerticalAlignment="Top" 
-            Width="261" 
-            Margin="5,33,0,0" 
-            IsItemClickEnabled="True" 
-            ItemClick="AccountsList_ItemClick">
-            <ListView.Header>
-                <TextBlock Text="Lista kont"/>
-            </ListView.Header>
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate x:DataType="data:GroupedUserAccount">
-                            <TextBlock Text="{x:Bind Key}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="MasterColumn" Width="320" />
+            <ColumnDefinition x:Name="DetailColumn" Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <ListView x:Name="AccountsList"
+                  Grid.Row="1"
+                  ItemsSource="{x:Bind Accounts.View, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="data:UserAccountObject">
-                    <StackPanel>
-                        <TextBlock Text="{x:Bind UserAccount.DisplayName}" Style="{ThemeResource BaseTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"/>
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}">
-                            <Run Text="{x:Bind UserAccount.Balance}"/>
-                            <Run Text="{x:Bind UserAccount.CurrencyName }"/>
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <ListView 
-            x:Name="TransactionsList" 
-            ItemsSource="{x:Bind AccountTransactionsList.View, Mode=OneWay}"
-            HorizontalAlignment="Left" 
-            Height="677" 
-            Margin="0,33,0,0" 
-            VerticalAlignment="Top" 
-            Width="984" 
-            Grid.Column="1" >
-            <ListView.Header>
-                <TextBlock Text="Transakcje"/>
-            </ListView.Header>
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate x:DataType="data:GroupedMoneyTransaction">
-                            <TextBlock Text="{x:Bind Key}" Style="{ThemeResource SubheaderTextBlockStyle}" FontWeight="Thin"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate x:Name="Transaction" x:DataType="data:MoneyTransactionObject">
-                    <StackPanel>
-                        <TextBlock Text="{x:Bind MoneyTransaction.Description}" Style="{ThemeResource SubtitleTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}" FontStretch="SemiExpanded" FontWeight="SemiBold"/>
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource SystemControlPageTextBaseMediumBrush}">
-                            <Run Text="Kategoria:" FontWeight="Thin"/>
-                            <Run Text="{x:Bind MoneyTransaction.CategoryName}" FontWeight="Medium"/>
-                        </TextBlock>
-                        <TextBlock  Style="{ThemeResource BodyTextBlockStyle}" FontWeight="Medium">
-                            <Run Text="{x:Bind MoneyTransaction.Amount}"/>
-                            <Run Text="{x:Bind MoneyTransaction.CurrencyName}"/>
-                        </TextBlock>
-                    </StackPanel>
+                    <Grid Margin="0,11,0,13">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{x:Bind UserAccount.BankName}"
+                                   Style="{ThemeResource BaseTextBlockStyle}"/>
+
+                        <TextBlock Text="{x:Bind UserAccount.DisplayName}"
+                                   Grid.Row="1"/>
+
+                        <TextBlock Text="{x:Bind UserAccount.CurrencyBalance}"
+                                   Grid.Row="2"/>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
