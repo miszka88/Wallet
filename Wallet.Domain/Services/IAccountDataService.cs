@@ -13,6 +13,6 @@ namespace Wallet.Domain.Services
         Task<IDictionary<long, string>> GetUserAccountsList();
         Task<IDictionary<long, string>> GetDefaultUserWallet();
         Task<ObservableCollection<GroupedUserAccount>> GetGroupedUserAccounts();
-        Task<IEnumerable<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId);
+        Task<ObservableCollection<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId);
     }
 }
