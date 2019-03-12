@@ -14,7 +14,7 @@
     x:Name="Page">
 
     <Page.Resources>
-        <CollectionViewSource x:Name="AccountDetailList" IsSourceGrouped="True"/>
+        <CollectionViewSource x:Name="AccountDetailList" IsSourceGrouped="False"/>
     </Page.Resources>
     
     <Page.Transitions>
@@ -27,23 +27,15 @@
         <ListView x:Name="AccountDetails"
                   x:DeferLoadStrategy="Lazy"
                   ItemsSource="{x:Bind AccountDetailList.View, Mode=OneWay}" IsSynchronizedWithCurrentItem="False" SelectedIndex="-1">
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate x:DataType="models:GroupedMoneyTransaction">
-                            <TextBlock Text="{x:Bind Key.Date.ToLongDateString()}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:MoneyTransactionObject">
-                    <StackPanel>
-                        <TextBlock>
+                    <StackPanel Padding="20" Height="84">
+                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="0,4,0,0">
                             <Run Text="{x:Bind MoneyTransaction.Amount}"/>
-                            <Run Text="{x:Bind MoneyTransaction.CurrencyName}"/>
-                            <Run Text="{x:Bind MoneyTransaction.Description.ToLower()}"/>
+                            <Run Text="{x:Bind MoneyTransaction.CurrencyName.ToUpperInvariant()}"/>
                         </TextBlock>
+                        <TextBlock Text="{x:Bind MoneyTransaction.Description.ToLower()}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".8" Margin="0,4,0,0"/>
+                        <TextBlock Text="{x:Bind MoneyTransaction.TransactionOn.Date.ToShortDateString()}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".6" Margin="0,4,0,0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

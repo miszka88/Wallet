@@ -50,7 +50,7 @@ namespace Wallet
             var clickedItem = (UserAccountObject)e.ClickedItem;
             _lastSelectedListItem = clickedItem;
 
-            AccountDetails.Source = await _accountDataService.GetGroupedTransactionsByAccountId(_lastSelectedListItem.UserAccount.Id);
+            AccountDetails.Source = await _accountDataService.GetTransactionsByAccountId(_lastSelectedListItem.UserAccount.Id);
 
             if (AdaptiveStates.CurrentState == NarrowState)
             {

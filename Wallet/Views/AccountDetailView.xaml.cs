@@ -22,7 +22,7 @@ namespace Wallet.Views
             base.OnNavigatedTo(e);
 
             long accountId = (long)e.Parameter;
-            AccountDetailList.Source = await _accountDataService.GetGroupedTransactionsByAccountId(accountId);
+            AccountDetailList.Source = await _accountDataService.GetTransactionsByAccountId(accountId);
 
             var backStack = Frame.BackStack;
             var backStackCount = backStack.Count;
