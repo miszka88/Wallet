@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Wallet.Common;
@@ -28,7 +29,7 @@ namespace Wallet.Services
 
             ApiKeyParam = new KeyValuePair<string, string>("api_key", _localStorage.ReadVariableValue("ApiKey")?.ToString());
         }
-        public async Task<IEnumerable<UserAccountClass>> GetUserAccountsData()
+        public async Task<IEnumerable<UserAccountObject>> GetUserAccountsData()
         {
             var uri = UriBuilderHelper.BuildUri(AccountAction.UserAccounts, ResponseType.Json, ApiKeyParam);
             var result = await _accountDataRepository.GetAll(uri);
@@ -37,12 +38,12 @@ namespace Wallet.Services
 
             var rawData = await result.Content.ReadAsStringAsync();
 
-            var accountsData = JsonConvert.DeserializeObject<UserAccountClass[]>(rawData);
+            var accountsData = JsonConvert.DeserializeObject<UserAccountObject[]>(rawData);
 
             return accountsData;
         }
 
-        public async Task<IEnumerable<MoneyTransactionClass>> GetAccountTransactionsById(long accountId)
+        public async Task<IEnumerable<MoneyTransactionObject>> GetTransactionsByAccountId(long accountId)
         {
             var accountIdParam = new KeyValuePair<string, string>("user_account_id", accountId.ToString());
             var uri = UriBuilderHelper.BuildUri(AccountAction.Transactions, ResponseType.Json, ApiKeyParam, accountIdParam);
@@ -52,7 +53,7 @@ namespace Wallet.Services
 
             var rawData = await result.Content.ReadAsStringAsync();
 
-            var accountTransactions = JsonConvert.DeserializeObject<MoneyTransactionClass[]>(rawData);
+            var accountTransactions = JsonConvert.DeserializeObject<MoneyTransactionObject[]>(rawData);
 
             return accountTransactions;
         }
@@ -130,6 +131,25 @@ namespace Wallet.Services
             var isValid = categories.Keys.Contains(categoryId);
 
             return isValid;
+        }
+
+        public async Task<ObservableCollection<GroupedUserAccount>> GetGroupedUserAccounts()
+        {
+            var userAccoutnsData = await GetUserAccountsData();
+            var groupedUserAccoutnsData = userAccoutnsData.GroupBy(item => item.UserAccount.BankName)
+                         .Select(group => new GroupedUserAccount(group) { Key = group.Key });
+
+            return new ObservableCollection<GroupedUserAccount>(groupedUserAccoutnsData);
+        }
+
+        public async Task<ObservableCollection<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId)
+        {
+            var transactionsData = await GetTransactionsByAccountId(accountId);
+
+            var groupedMoneyTransactions = transactionsData.GroupBy(item => item.MoneyTransaction.TransactionOn)
+                .Select(group => new GroupedMoneyTransaction(group) { Key = group.Key });
+
+            return new ObservableCollection<GroupedMoneyTransaction>(groupedMoneyTransactions);
         }
     }
 }

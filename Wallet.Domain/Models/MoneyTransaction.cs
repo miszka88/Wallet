@@ -1,13 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using Wallet.Common;
 
 namespace Wallet.Domain.Models
 {
-    public class MoneyTransactionClass
+    public class MoneyTransactionObject
     {
         [JsonProperty("money_transaction")]
         public MoneyTransaction MoneyTransaction { get; set; }
+    }
+
+    public class GroupedMoneyTransaction : List<MoneyTransactionObject>
+    {
+        public DateTimeOffset Key { get; set; }
+        public GroupedMoneyTransaction(IEnumerable<MoneyTransactionObject> items) : base(items) { }
     }
 
     public class MoneyTransaction

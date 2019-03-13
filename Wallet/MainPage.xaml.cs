@@ -1,81 +1,100 @@
 ﻿using Autofac;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Wallet.Authorization;
-using Wallet.Common;
-using Wallet.Common.Helpers;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Wallet.Domain.Models;
 using Wallet.Domain.Services;
+using Wallet.Views;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
-//Szablon elementu Pusta strona jest udokumentowany na stronie https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x415
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 
 namespace Wallet
 {
-    /// <summary>
-    /// Pusta strona, która może być używana samodzielnie lub do której można nawigować wewnątrz ramki.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
-        private readonly HttpClient _httpClient;
-        private readonly IAuthorization _authorization;
         private readonly IAccountDataService _accountDataService;
         private readonly ICategoryService _categoryService;
 
-        private ILocalStorage _localStorage;
+        private UserAccountObject _lastSelectedListItem;
+        private ObservableCollection<GroupedUserAccount> GroupedUserAccounts;
 
         public MainPage()
         {
             this.InitializeComponent();
 
-            _httpClient = App.Container.Resolve<HttpClient>();
-            _authorization = App.Container.Resolve<IAuthorization>();
             _accountDataService = App.Container.Resolve<IAccountDataService>();
             _categoryService = App.Container.Resolve<ICategoryService>();
+        }
 
-            _localStorage = App.Container.Resolve<ILocalStorage>();
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
 
+            GroupedUserAccounts = await _accountDataService.GetGroupedUserAccounts();
+            Accounts.Source = GroupedUserAccounts;
 
-            var apiKey = _localStorage.ReadVariableValue("ApiKey");
-#if DEBUG
-            if (apiKey == null)
+            if (e.Parameter != null)
             {
-                Debug.WriteLine("ApiKey not stored.");
+                _lastSelectedListItem = GroupedUserAccounts.SelectMany(g => g.Where(x => x.UserAccount.Id == (long)e.Parameter)).Select(y => y).Single();
+            }
 
-                var loginParams = new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("email", ""),
-                    new KeyValuePair<string, string>("password", "")
-                };
+            UpdateForVisualState(AdaptiveStates.CurrentState);
+            DisableContentTransitions();
 
-                var uri = UriBuilderHelper.BuildUri(AccountAction.Session, ResponseType.Json);
+            AccountsList.SelectedItem = _lastSelectedListItem;
+        }
 
+        private async void AccountsList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clickedItem = (UserAccountObject)e.ClickedItem;
+            _lastSelectedListItem = clickedItem;
 
-                Task.Run(() => _authorization.Authorize(_httpClient, loginParams, uri)).Wait();
+            AccountDetails.Source = await _accountDataService.GetTransactionsByAccountId(_lastSelectedListItem.UserAccount.Id);
+
+            if (AdaptiveStates.CurrentState == NarrowState)
+            {
+                Frame.Navigate(typeof(AccountDetailView), _lastSelectedListItem.UserAccount.Id, new DrillInNavigationTransitionInfo());
             }
             else
             {
-                Debug.WriteLine("ApiKey read from local storage.");
+                EnableContentTransitions();
+            }
+        }
+
+        private void AdaptiveStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            UpdateForVisualState(e.NewState, e.OldState);
+        }
+
+        private void UpdateForVisualState(VisualState newState, VisualState oldState = null)
+        {
+            bool isNarrow = newState == NarrowState;
+
+            if (isNarrow && oldState == DefaultState && _lastSelectedListItem != null)
+            {
+                Frame.Navigate(typeof(AccountDetailView), _lastSelectedListItem.UserAccount.Id, new SuppressNavigationTransitionInfo());
             }
 
-            Task.Run(async () =>
+            EntranceNavigationTransitionInfo.SetIsTargetElement(AccountsList, isNarrow);
+            if (DetailContentPresenter != null)
             {
-                //var accountsData = await _accountDataService.GetUserAccountsData();
-                //var accountsList = await _accountDataService.GetUserAccountsList();
-                //var walletsList = await _accountDataService.GetDefaultUserWallet();
-                //await _accountDataService.AddTransaction(new MoneyTransaction(), 1);
+                EntranceNavigationTransitionInfo.SetIsTargetElement(DetailContentPresenter, !isNarrow);
+            }
+        }
 
-                await _categoryService.GetAll();
+        private void EnableContentTransitions()
+        {
+            DetailContentPresenter.ContentTransitions.Clear();
+            DetailContentPresenter.ContentTransitions.Add(new EntranceThemeTransition());
+        }
 
-                //Debug.WriteLine(string.Join("\n", accountsData.Where(a => !string.IsNullOrWhiteSpace(a.UserAccount.DisplayName)).Select(x => $"Id:{x.UserAccount.Id} | DispayName:{x.UserAccount.DisplayName}")));
-
-                //var accountId = accountsData
-                //    .SingleOrDefault(a => a.UserAccount.DisplayName.Contains("gotówka")).UserAccount.Id;
-
-                //await _accountDataService.GetAccountTransactionsById(accountId);
-            }).Wait();
-#endif
+        private void DisableContentTransitions()
+        {
+            if (DetailContentPresenter != null)
+            {
+                DetailContentPresenter.ContentTransitions.Clear();
+            }
         }
     }
 }

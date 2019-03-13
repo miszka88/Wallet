@@ -1,11 +1,19 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Wallet.Domain.Models
 {
-    public class UserAccountClass
+    public class UserAccountObject
     {
         [JsonProperty("user_account")]
         public UserAccount UserAccount { get; set; }
+    }
+
+    public class GroupedUserAccount : List<UserAccountObject>
+    {
+        public string Key { get; set; }
+
+        public GroupedUserAccount(IEnumerable<UserAccountObject> items) : base(items) { }
     }
 
     public class UserAccount

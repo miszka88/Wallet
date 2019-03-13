@@ -7,6 +7,7 @@ using Wallet.Domain.Services;
 using Wallet.Repositories;
 using Wallet.Services;
 using Wallet.Storage;
+using Wallet.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -90,7 +91,7 @@ namespace Wallet
                     // Kiedy stos nawigacji nie jest przywrócony, przejdź do pierwszej strony,
                     // konfigurując nową stronę przez przekazanie wymaganych informacji jako
                     // parametr
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(LoginView), e.Arguments);
                 }
                 // Upewnij się, ze bieżące okno jest aktywne
                 Window.Current.Activate();
