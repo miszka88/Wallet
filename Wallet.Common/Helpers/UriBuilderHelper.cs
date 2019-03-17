@@ -12,10 +12,20 @@ namespace Wallet.Common.Helpers
             StringBuilder uri = new StringBuilder(Constants.BaseUri);
             uri.Append(Constants.DefaultPath);
             uri.Append(accountAction);
-            uri.Append(responseTypye);
 
             if (queryParams.Length > 0)
             {
+                if (queryParams.All(x => !string.IsNullOrWhiteSpace(x.Key)))
+                {
+                    uri.Append(responseTypye);
+                }
+                else
+                {
+                    var value = queryParams.Where(param => string.IsNullOrWhiteSpace(param.Key)).Single().Value;
+                    uri.Append($"/{value}");
+                    uri.Append(responseTypye);
+                }
+
                 uri.Append('?');
                 uri.Append(string.Join("&", queryParams.Where(param => !string.IsNullOrWhiteSpace(param.Key)).Select(param => $"{param.Key}={param.Value}")));
             }
