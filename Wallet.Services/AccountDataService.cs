@@ -43,7 +43,7 @@ namespace Wallet.Services
             return accountsData;
         }
 
-        public async Task<IEnumerable<MoneyTransactionObject>> GetTransactionsByAccountId(long accountId)
+        public async Task<ObservableCollection<MoneyTransactionObject>> GetTransactionsByAccountId(long accountId)
         {
             var accountIdParam = new KeyValuePair<string, string>("user_account_id", accountId.ToString());
             var uri = UriBuilderHelper.BuildUri(AccountAction.Transactions, ResponseType.Json, ApiKeyParam, accountIdParam);
@@ -55,14 +55,13 @@ namespace Wallet.Services
 
             var accountTransactions = JsonConvert.DeserializeObject<MoneyTransactionObject[]>(rawData);
 
-            return accountTransactions;
+            return new ObservableCollection<MoneyTransactionObject>(accountTransactions);
         }
 
         public async Task AddTransaction(MoneyTransaction transaction, long walletId)
         {
 #if DEBUG
-            var userDefaultWalletId = await GetDefaultUserWallet();
-            var userAccountId = userDefaultWalletId.Single().Key;
+            var userDefaultWalletId = await GetDefaultWalletId();
 
             transaction.Direction = TransactionDirection.Type.Withdrawal;
             var categories = await _categoryService.GetAll();
@@ -70,26 +69,27 @@ namespace Wallet.Services
             transaction.CategoryId = 6328643;
             transaction.CategoryName = categories.Single(c => c.Key == transaction.CategoryId).Value;
 
-            // keep it in realese
+            var transactionData = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("money_transaction[user_account_id]", userDefaultWalletId.ToString()),
+                new KeyValuePair<string, string>("money_transaction[category_id]", transaction.CategoryId.ToString()),
+                new KeyValuePair<string, string>("money_transaction[currency_amount]", "90"),
+                //new KeyValuePair<string, string>("money_transaction[direction]", transaction.Direction.ToString().ToLower()),
+                new KeyValuePair<string, string>("money_transaction[name]", "test-transaction-data"),
+                new KeyValuePair<string, string>("money_transaction[tag_string]", "APP_WALLET"),
+                new KeyValuePair<string, string>("money_transaction[transaction_on]", DateTime.Now.ToString()),
+                new KeyValuePair<string, string>("money_transaction[client_assigned_id]", DateTime.Now.Ticks.ToString())
+            };
+
+#else
+            var userDefaultWalletId = await GetDefaultWalletId();
+
             if (!IsCategoryValidForTransactionDirection(await _categoryService.GetByTransactionDirection(transaction.Direction), transaction.CategoryId))
                 throw new ArgumentException($"Category: {transaction.CategoryName} does not belong to {transaction.Direction} group.");
 
             var transactionData = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("money_transaction[category_id]", transaction.CategoryId.ToString()),
-                new KeyValuePair<string, string>("money_transaction[currency_amount]", "90"),
-                new KeyValuePair<string, string>("money_transaction[direction]", transaction.Direction.ToString().ToLower()),
-                new KeyValuePair<string, string>("money_transaction[name]", "fake_data"),
-                new KeyValuePair<string, string>("money_transaction[tag_string]", "APP_WALLET"),
-                new KeyValuePair<string, string>("money_transaction[transaction_on]", new DateTime(2018,06,17).ToString()),
-                new KeyValuePair<string, string>("money_transaction[user_account_id]", userAccountId.ToString()),
-                new KeyValuePair<string, string>("money_transaction[client_assigned_id]", DateTime.Now.Ticks.ToString())
-            };
-
-#else
-            var transactionData = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("money_transaction[user_account_id]", transaction.UserAccountId.ToString()),
+                new KeyValuePair<string, string>("money_transaction[user_account_id]", walletId.ToString()),
                 new KeyValuePair<string, string>("money_transaction[category_id]", transaction.CategoryId.ToString()),
                 new KeyValuePair<string, string>("money_transaction[currency_amount]", transaction.CurrencyAmount),
                 new KeyValuePair<string, string>("money_transaction[currency_name]", transaction.CurrencyName),
