@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Wallet.Domain.Models;
@@ -60,6 +61,26 @@ namespace Wallet
             else
             {
                 EnableContentTransitions();
+            }
+
+            EnableCommandBarActions(clickedItem);
+            FillCommandBarAccountName(clickedItem.UserAccount.BankName);
+        }
+
+        private void EnableCommandBarActions(UserAccountObject accountObject)
+        {
+            if (accountObject != null && AccountsList.SelectedIndex > -1)
+            {
+                AddTransaction.IsEnabled = true;
+            }
+        }
+
+        private void FillCommandBarAccountName(string bankName)
+        {
+            if (!string.IsNullOrWhiteSpace(bankName))
+            {
+                CommandBarAccountName.Text = bankName;
+                CommandBarContent.Visibility = Visibility.Visible;
             }
         }
 

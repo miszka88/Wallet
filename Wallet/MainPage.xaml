@@ -60,73 +60,99 @@
             </ListView>
         </DataTemplate>
     </Page.Resources>
-    
+
     <Grid x:Name="LayoutRoot">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="AdaptiveStates" 
-                              CurrentStateChanged="AdaptiveStates_CurrentStateChanged">
-                <VisualState x:Name="DefaultState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-                </VisualState>
-
-                <VisualState x:Name="NarrowState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-
-                    <VisualState.Setters>
-                        <Setter Target="MasterColumn.Width" Value="*" />
-                        <Setter Target="DetailColumn.Width" Value="0" />
-                        <Setter Target="AccountsList.SelectionMode" Value="None" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="MasterColumn" Width="320" />
-            <ColumnDefinition x:Name="DetailColumn" Width="*" />
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <ListView x:Name="AccountsList"
+
+        <CommandBar x:Name="TransactionCommandBar" 
+                    DefaultLabelPosition="Bottom"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right">
+            <AppBarButton x:Name="AddTransaction" Label="Add transaction" Icon="Add" IsEnabled="False"
+                          Click="AddTransaction_Click"/>
+            <AppBarButton x:Name="EditTransaction" Label="Edit transaction" Icon="Edit" IsEnabled="False"/>
+            <AppBarButton x:Name="RemoveTransaction" Label="Remove transaction" Icon="Remove" IsEnabled="False"/>
+            <CommandBar.Content>
+                <TextBlock x:Name="CommandBarContent" 
+                           Visibility="Collapsed">
+                    <Run Text="Account: " FontWeight="ExtraLight"/>
+                    <Run x:Name="CommandBarAccountName" FontWeight="SemiBold"/>
+                </TextBlock>
+            </CommandBar.Content>
+        </CommandBar>
+
+        <Grid x:Name="MainContent" Grid.Row="1">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="AdaptiveStates" 
+                              CurrentStateChanged="AdaptiveStates_CurrentStateChanged">
+                    <VisualState x:Name="DefaultState">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="720" />
+                        </VisualState.StateTriggers>
+                    </VisualState>
+
+                    <VisualState x:Name="NarrowState">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0" />
+                        </VisualState.StateTriggers>
+
+                        <VisualState.Setters>
+                            <Setter Target="MasterColumn.Width" Value="*" />
+                            <Setter Target="DetailColumn.Width" Value="0" />
+                            <Setter Target="AccountsList.SelectionMode" Value="None" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="MasterColumn" Width="320" />
+                <ColumnDefinition x:Name="DetailColumn" Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ListView x:Name="AccountsList"
                   ItemsSource="{x:Bind Accounts.View, Mode=OneWay}" 
                   IsItemClickEnabled="True"
                   ItemClick="AccountsList_ItemClick">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="data:UserAccountObject">
-                    <Grid Margin="0,11,0,13">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="data:UserAccountObject">
+                        <Grid Margin="0,11,0,13">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{x:Bind UserAccount.BankName}"
+                            <TextBlock Text="{x:Bind UserAccount.BankName}"
                                    Style="{ThemeResource BaseTextBlockStyle}"/>
 
-                        <TextBlock Text="{x:Bind UserAccount.DisplayName}"
+                            <TextBlock Text="{x:Bind UserAccount.DisplayName}"
                                    Grid.Row="1"/>
 
-                        <TextBlock Text="{x:Bind UserAccount.CurrencyBalance}"
+                            <TextBlock Text="{x:Bind UserAccount.CurrencyBalance}"
                                    Grid.Row="2"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-        <ContentPresenter
+            <ContentPresenter
             x:Name="DetailContentPresenter"
             Grid.Column="1"
             Grid.RowSpan="2"
@@ -135,9 +161,10 @@
             BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
             Content="{x:Bind AccountDetails.View, Mode=OneWay}"
             ContentTemplate="{StaticResource DetailContentTemplate}">
-            <ContentPresenter.ContentTransitions>
-                <TransitionCollection />
-            </ContentPresenter.ContentTransitions>
-        </ContentPresenter>
+                <ContentPresenter.ContentTransitions>
+                    <TransitionCollection />
+                </ContentPresenter.ContentTransitions>
+            </ContentPresenter>
+        </Grid>
     </Grid>
 </Page>
