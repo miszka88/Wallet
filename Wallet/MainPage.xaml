@@ -71,16 +71,18 @@
         </Grid.ColumnDefinitions>
 
         <CommandBar x:Name="TransactionCommandBar" 
-                    DefaultLabelPosition="Bottom"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right">
+                    DefaultLabelPosition="Right"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Center">
             <AppBarButton x:Name="AddTransaction" Label="Add transaction" Icon="Add" IsEnabled="False"
                           Click="AddTransaction_Click"/>
             <AppBarButton x:Name="EditTransaction" Label="Edit transaction" Icon="Edit" IsEnabled="False"/>
-            <AppBarButton x:Name="RemoveTransaction" Label="Remove transaction" Icon="Remove" IsEnabled="False"/>
+            <AppBarButton x:Name="RemoveTransaction" Label="Remove transaction" Icon="Remove" IsEnabled="False"
+                          Click="RemoveTransaction_Click"/>
             <CommandBar.Content>
                 <TextBlock x:Name="CommandBarContent" 
-                           Visibility="Collapsed">
+                           Visibility="Collapsed"
+                           Padding="10,10,10,10">
                     <Run Text="Account: " FontWeight="ExtraLight"/>
                     <Run x:Name="CommandBarAccountName" FontWeight="SemiBold"/>
                 </TextBlock>
