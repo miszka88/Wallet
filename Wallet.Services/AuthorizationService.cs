@@ -26,7 +26,7 @@ namespace Wallet.Services
             var externalApiResponse = await _authorizationRepository.GetApiKey(loginParams, uri);
             if (!string.IsNullOrWhiteSpace(externalApiResponse))
             {
-                var apiKey = JsonConvert.DeserializeObject<JsonObject>(externalApiResponse).User.Api_key;
+                var apiKey = JsonConvert.DeserializeObject<UserClass>(externalApiResponse).User.ApiKey;
 
                 _localStorage.StoreVariable(new KeyValuePair<string, string>("ApiKey", apiKey));
             }
