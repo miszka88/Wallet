@@ -17,6 +17,7 @@ namespace Wallet
         private readonly ICategoryService _categoryService;
 
         private UserAccountObject _lastSelectedListItem;
+        private MoneyTransactionObject _lastSelectedTransactionItem;
         private ObservableCollection<GroupedUserAccount> GroupedUserAccounts;
 
         public MainPage()
@@ -95,6 +96,38 @@ namespace Wallet
             {
                 DetailContentPresenter.ContentTransitions.Clear();
             }
+        }
+
+        private void AccountDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MoneyTransactionObject selectedItem = e.AddedItems.SingleOrDefault() as MoneyTransactionObject;
+
+            if (selectedItem == null)
+            {
+                return;
+            }
+
+            ListViewItem listItem = (sender as ListView).ContainerFromItem(selectedItem) as ListViewItem;
+
+            ExtendTransactionDetails(listItem);
+
+            if (_lastSelectedTransactionItem != null)
+            {
+                listItem = (sender as ListView).ContainerFromItem(_lastSelectedTransactionItem) as ListViewItem;
+                CollapseTransactionDetails(listItem);
+            }
+
+            _lastSelectedTransactionItem = selectedItem;
+        }
+
+        private void ExtendTransactionDetails(ListViewItem listItem)
+        {
+            listItem.ContentTemplate = (DataTemplate)this.Resources["TransactionExtendedDetails"];
+        }
+
+        private void CollapseTransactionDetails(ListViewItem listItem)
+        {
+            listItem.ContentTemplate = (DataTemplate)this.Resources["TransactionBasicDetails"];
         }
     }
 }

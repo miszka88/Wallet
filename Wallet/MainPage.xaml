@@ -20,23 +20,43 @@
         <CollectionViewSource x:Name="Accounts" IsSourceGrouped="True"/>
         <CollectionViewSource x:Name="AccountDetails" IsSourceGrouped="False"/>
 
+        <DataTemplate x:Name="TransactionBasicDetails"
+                      x:Key="TransactionBasicDetails"
+                      x:DataType="data:MoneyTransactionObject">
+            <StackPanel Padding="20" Height="Auto">
+                <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="0,4,0,0">
+                    <Run Text="{x:Bind MoneyTransaction.Amount}"/>
+                    <Run Text="{x:Bind MoneyTransaction.CurrencyName.ToUpperInvariant()}"/>
+                </TextBlock>
+                <TextBlock Text="{x:Bind MoneyTransaction.Description.ToLower()}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".8" Margin="0,4,0,0"/>
+                <TextBlock Text="{x:Bind MoneyTransaction.TransactionOn.Date.ToShortDateString()}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".6" Margin="0,4,0,0"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Name="TransactionExtendedDetails"
+                      x:Key="TransactionExtendedDetails"
+                      x:DataType="data:MoneyTransactionObject">
+            <StackPanel Padding="20" Height="Auto">
+                <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="0,4,0,0">
+                    <Run Text="{x:Bind MoneyTransaction.Amount}"/>
+                    <Run Text="{x:Bind MoneyTransaction.CurrencyName.ToUpperInvariant()}"/>
+                </TextBlock>
+                <TextBlock Text="{x:Bind MoneyTransaction.CategoryName}"/>
+                <TextBlock Text="{x:Bind MoneyTransaction.TagString}"/>
+                <TextBlock Text="{x:Bind MoneyTransaction.Direction}"/>
+                <TextBlock Text="{x:Bind MoneyTransaction.Party}"/>
+                <TextBlock Text="{x:Bind MoneyTransaction.Description.ToLower()}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".8" Margin="0,4,0,0"/>
+                <TextBlock Text="{x:Bind MoneyTransaction.TransactionOn.Date.ToShortDateString()}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".6" Margin="0,4,0,0"/>
+            </StackPanel>
+        </DataTemplate>
+
         <DataTemplate x:Name="DetailContentTemplate">
             <ListView x:Name="AccountDetails"
                       ItemsSource="{Binding}"
-                      IsSynchronizedWithCurrentItem="False"
-                      SelectedIndex="-1">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="data:MoneyTransactionObject">
-                        <StackPanel Padding="20" Height="84">
-                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Margin="0,4,0,0">
-                                <Run Text="{x:Bind MoneyTransaction.Amount}"/>
-                                <Run Text="{x:Bind MoneyTransaction.CurrencyName.ToUpperInvariant()}"/>
-                            </TextBlock>
-                            <TextBlock Text="{x:Bind MoneyTransaction.Description.ToLower()}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".8" Margin="0,4,0,0"/>
-                            <TextBlock Text="{x:Bind MoneyTransaction.TransactionOn.Date.ToShortDateString()}" Style="{ThemeResource CaptionTextBlockStyle}" Opacity=".6" Margin="0,4,0,0"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                      ItemTemplate="{StaticResource TransactionBasicDetails}"
+                      SelectionChanged="AccountDetails_SelectionChanged"
+                      SelectedIndex="-1"
+                      IsSynchronizedWithCurrentItem="False">
             </ListView>
         </DataTemplate>
     </Page.Resources>
