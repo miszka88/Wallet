@@ -126,6 +126,16 @@ namespace Wallet.Services
             return accountsList;
         }
 
+        public async Task<long> GetDefaultWalletId()
+        {
+            var accounts = await GetUserAccountsData();
+#if DEBUG
+            return accounts.Single(x => x.UserAccount.DisplayName == "test_wallet").UserAccount.Id;
+#else
+            return accounts.Single(x => x.UserAccount.IsDefaultWallet).UserAccount.Id;
+#endif
+        }
+
         private bool IsCategoryValidForTransactionDirection(IDictionary<long, string> categories, long categoryId)
         {
             var isValid = categories.Keys.Contains(categoryId);

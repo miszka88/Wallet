@@ -108,6 +108,9 @@
     <Compile Include="Views\AccountDetailView.xaml.cs">
       <DependentUpon>AccountDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddTransactionView.xaml.cs">
+      <DependentUpon>AddTransactionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AccountDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTransactionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

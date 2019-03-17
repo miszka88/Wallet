@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Wallet.Domain.Models;
 using Wallet.Domain.Services;
 using Wallet.Views;
@@ -20,6 +21,7 @@ namespace Wallet
         private UserAccountObject _lastSelectedListItem;
         private MoneyTransactionObject _lastSelectedTransactionItem;
         private ObservableCollection<GroupedUserAccount> GroupedUserAccounts;
+        private ObservableCollection<MoneyTransactionObject> TransactionsList;
 
         public MainPage()
         {
@@ -52,7 +54,8 @@ namespace Wallet
             var clickedItem = (UserAccountObject)e.ClickedItem;
             _lastSelectedListItem = clickedItem;
 
-            AccountDetails.Source = await _accountDataService.GetTransactionsByAccountId(_lastSelectedListItem.UserAccount.Id);
+            TransactionsList = await _accountDataService.GetTransactionsByAccountId(_lastSelectedListItem.UserAccount.Id);
+            AccountDetails.Source = TransactionsList;
 
             if (AdaptiveStates.CurrentState == NarrowState)
             {
@@ -149,6 +152,23 @@ namespace Wallet
         private void CollapseTransactionDetails(ListViewItem listItem)
         {
             listItem.ContentTemplate = (DataTemplate)this.Resources["TransactionBasicDetails"];
+        }
+
+        private async void AddTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedAccount = AccountsList.SelectedItem as UserAccountObject;
+            var userAccountId = selectedAccount.UserAccount.Id;
+
+            if (userAccountId > 0)
+            {
+                Frame.Navigate(typeof(AddTransactionView), userAccountId);
+            }
+            await RefreshAccountsData();
+        }
+        private async Task RefreshAccountsData()
+        {
+            GroupedUserAccounts = await _accountDataService.GetGroupedUserAccounts();
+            Accounts.Source = GroupedUserAccounts;
         }
     }
 }
