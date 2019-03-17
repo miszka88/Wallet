@@ -131,6 +131,8 @@ namespace Wallet
                 return;
             }
 
+            RemoveTransaction.IsEnabled = true;
+
             ListViewItem listItem = (sender as ListView).ContainerFromItem(selectedItem) as ListViewItem;
 
             ExtendTransactionDetails(listItem);
@@ -165,6 +167,21 @@ namespace Wallet
             }
             await RefreshAccountsData();
         }
+
+        private async void RemoveTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            var transactionId = _lastSelectedTransactionItem.MoneyTransaction.Id;
+
+            if (transactionId > 0)
+            {
+                await _accountDataService.RemoveTransaction(transactionId);
+            }
+            var item = TransactionsList.Single(x => x.MoneyTransaction.Id == transactionId);
+            TransactionsList.Remove(item);
+            _lastSelectedTransactionItem = null;
+            await RefreshAccountsData();
+        }
+
         private async Task RefreshAccountsData()
         {
             GroupedUserAccounts = await _accountDataService.GetGroupedUserAccounts();

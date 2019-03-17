@@ -9,5 +9,6 @@ namespace Wallet.Domain.Repositories
     {
         Task<HttpResponseMessage> GetAll(Uri uri);
         Task<bool> AddTransaction(IEnumerable<KeyValuePair<string, string>> transaction, Uri uri);
+        Task<bool> RemoveTransaction(long transactionId, Uri uri);
     }
 }

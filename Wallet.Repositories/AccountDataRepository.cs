@@ -36,5 +36,13 @@ namespace Wallet.Repositories
 
             return response.IsSuccessStatusCode && response.Content != null;
         }
+        public async Task<bool> RemoveTransaction(long transactionId, Uri uri)
+        {
+            var response = await _httpClient.DeleteAsync(uri);
+
+            Debug.WriteLine($"Repository.RemoveTransaction | Server response: {(int)response.StatusCode}-{response.StatusCode}");
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }

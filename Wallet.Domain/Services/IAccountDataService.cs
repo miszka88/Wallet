@@ -14,5 +14,6 @@ namespace Wallet.Domain.Services
         Task<IDictionary<long, string>> GetDefaultUserWallet();
         Task<ObservableCollection<GroupedUserAccount>> GetGroupedUserAccounts();
         Task<ObservableCollection<GroupedMoneyTransaction>> GetGroupedTransactionsByAccountId(long accountId);
+        Task RemoveTransaction(long transactionId);
     }
 }

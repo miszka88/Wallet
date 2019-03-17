@@ -161,5 +161,20 @@ namespace Wallet.Services
 
             return new ObservableCollection<GroupedMoneyTransaction>(groupedMoneyTransactions);
         }
+
+        public async Task RemoveTransaction(long transactionId)
+        {
+            var transactionToRemoveParams = new KeyValuePair<string, string>(string.Empty, transactionId.ToString());
+
+            var uri = UriBuilderHelper.BuildUri(AccountAction.Transactions, ResponseType.Json, ApiKeyParam, transactionToRemoveParams);
+
+            var isSuccessRemoved = await _accountDataRepository.RemoveTransaction(transactionId, uri);
+
+            if (isSuccessRemoved)
+            {
+                await GetTransactionsByAccountId(await GetDefaultWalletId());
+            }
+        }
+
     }
 }
