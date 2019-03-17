@@ -16,7 +16,6 @@ namespace Wallet
     public sealed partial class MainPage : Page
     {
         private readonly IAccountDataService _accountDataService;
-        private readonly ICategoryService _categoryService;
 
         private UserAccountObject _lastSelectedListItem;
         private MoneyTransactionObject _lastSelectedTransactionItem;
@@ -28,7 +27,6 @@ namespace Wallet
             this.InitializeComponent();
 
             _accountDataService = App.Container.Resolve<IAccountDataService>();
-            _categoryService = App.Container.Resolve<ICategoryService>();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

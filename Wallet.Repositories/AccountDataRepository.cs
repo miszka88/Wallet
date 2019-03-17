@@ -19,7 +19,7 @@ namespace Wallet.Repositories
         {
             var response = await _httpClient.GetAsync(uri);
 
-            Debug.WriteLine($"Repository.Get() | Server response: {(int)response.StatusCode}-{response.StatusCode}");
+            Debug.WriteLine($"Repository.GetAllTransactions | Server response: {(int)response.StatusCode}-{response.StatusCode}");
 
             if (!response.IsSuccessStatusCode) return null;
 
@@ -32,10 +32,11 @@ namespace Wallet.Repositories
 
             var response = await _httpClient.PostAsync(uri, postContent);
 
-            Debug.WriteLine($"Repository.AddTransaction() | Server response: {(int)response.StatusCode}-{response.StatusCode}");
+            Debug.WriteLine($"Repository.AddTransaction | Server response: {(int)response.StatusCode}-{response.StatusCode}");
 
             return response.IsSuccessStatusCode && response.Content != null;
         }
+
         public async Task<bool> RemoveTransaction(long transactionId, Uri uri)
         {
             var response = await _httpClient.DeleteAsync(uri);
